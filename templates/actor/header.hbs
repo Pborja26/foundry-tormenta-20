@@ -1,0 +1,55 @@
+<header class="t20s-header">
+  <img class="t20s-retrato" src="{{actor.img}}" alt="{{actor.name}}" data-action="editarImagem" />
+
+  <div class="t20s-identidade">
+    <div class="t20s-nome-linha">
+      <input class="t20s-nome" type="text" name="name" value="{{actor.name}}" placeholder="Nome" />
+      <label class="t20s-nivel">
+        <span>Nível</span>
+        <input type="number" name="system.nivel" value="{{system.nivel}}" min="1" max="20" />
+      </label>
+    </div>
+    <div class="t20s-detalhes">
+      <input type="text" name="system.detalhes.raca" value="{{system.detalhes.raca}}" placeholder="Raça" />
+      <input type="text" name="system.detalhes.classe" value="{{system.detalhes.classe}}" placeholder="Classe" />
+      <input type="text" name="system.detalhes.origem" value="{{system.detalhes.origem}}" placeholder="Origem" />
+      <input type="text" name="system.detalhes.divindade" value="{{system.detalhes.divindade}}" placeholder="Divindade" />
+    </div>
+
+    <div class="t20s-recursos">
+      <div class="t20s-recurso pv">
+        <span class="t20s-recurso-nome">PV</span>
+        <div class="t20s-barra">
+          <span class="t20s-barra-fill" style="width: {{pvPct}}%"></span>
+          <div class="t20s-barra-valores">
+            <input type="number" name="system.pv.value" value="{{system.pv.value}}" />
+            <span>/</span>
+            <input type="number" name="system.pv.max" value="{{system.pv.max}}" />
+          </div>
+        </div>
+      </div>
+      <div class="t20s-recurso pm">
+        <span class="t20s-recurso-nome">PM</span>
+        <div class="t20s-barra">
+          <span class="t20s-barra-fill" style="width: {{pmPct}}%"></span>
+          <div class="t20s-barra-valores">
+            <input type="number" name="system.pm.value" value="{{system.pm.value}}" />
+            <span>/</span>
+            <input type="number" name="system.pm.max" value="{{system.pm.max}}" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="t20s-defesa" data-tooltip="10 + atributo + armadura ({{system.defesa.armadura}}) + outros">
+    <span class="t20s-defesa-rotulo">Defesa</span>
+    <span class="t20s-defesa-valor">{{system.defesa.total}}</span>
+    <div class="t20s-defesa-edit">
+      <select name="system.defesa.atributo">
+        {{selectOptions config.atributosAbr selected=system.defesa.atributo}}
+      </select>
+      <input type="number" name="system.defesa.outros" value="{{system.defesa.outros}}" title="Outros bônus" />
+    </div>
+  </div>
+</header>

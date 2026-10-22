@@ -1,0 +1,28 @@
+<div class="t20s-chat {{#if critico}}critico{{/if}} {{#if natural20}}critico{{/if}} {{#if natural1}}falha{{/if}}">
+  <header>
+    {{#if img}}<img src="{{img}}" alt="" />{{/if}}
+    <div>
+      <h3>{{titulo}}</h3>
+      {{#if subtitulo}}<span class="t20s-chat-sub">{{subtitulo}}</span>{{/if}}
+    </div>
+  </header>
+
+  {{#if critico}}<p class="t20s-chat-aviso">Ameaça de crítico!</p>{{/if}}
+  {{#if natural20}}<p class="t20s-chat-aviso">20 natural!</p>{{/if}}
+  {{#if natural1}}<p class="t20s-chat-aviso">1 natural</p>{{/if}}
+
+  {{#each linhas as |linha|}}
+  <div class="t20s-chat-linha">
+    <span class="t20s-chat-rotulo">{{linha.rotulo}}</span>
+    {{{linha.html}}}
+  </div>
+  {{/each}}
+
+  {{#if detalhes}}
+  <dl class="t20s-chat-detalhes">
+    {{#each detalhes as |d|}}<dt>{{d.rotulo}}</dt><dd>{{d.valor}}</dd>{{/each}}
+  </dl>
+  {{/if}}
+
+  {{#if descricao}}<div class="t20s-chat-descricao">{{{descricao}}}</div>{{/if}}
+</div>

@@ -1,0 +1,30 @@
+{
+  "id": "t20-sistema",
+  "title": "Tormenta20 — Sistema Próprio",
+  "description": "Sistema para Foundry VTT v13 com as regras de Tormenta20 implementadas do zero.",
+  "version": "0.1.0",
+  "authors": [{ "name": "Pedro Borja" }],
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "esmodules": ["t20-sistema.mjs"],
+  "styles": ["styles/t20-sistema.css"],
+  "languages": [{ "lang": "pt-BR", "name": "Português (Brasil)", "path": "lang/pt-BR.json" }],
+  "documentTypes": {
+    "Actor": {
+      "personagem": { "htmlFields": ["biografia"] },
+      "ameaca": { "htmlFields": ["descricao"] }
+    },
+    "Item": {
+      "arma": { "htmlFields": ["descricao"] },
+      "armadura": { "htmlFields": ["descricao"] },
+      "magia": { "htmlFields": ["descricao"] },
+      "poder": { "htmlFields": ["descricao"] }
+    }
+  },
+  "primaryTokenAttribute": "pv",
+  "secondaryTokenAttribute": "pm",
+  "grid": { "type": 1, "distance": 1.5, "units": "m" },
+  "initiative": "1d20 + @pericias.iniciativa.total"
+}

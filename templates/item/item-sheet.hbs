@@ -1,0 +1,59 @@
+<div class="t20s-item-sheet">
+  <header class="t20s-item-header">
+    <img src="{{item.img}}" alt="{{item.name}}" data-action="editImage" data-edit="img" />
+    <input class="t20s-nome" type="text" name="name" value="{{item.name}}" />
+  </header>
+
+  <div class="t20s-campos">
+    {{#if (eq item.type "arma")}}
+    <label>Perícia
+      <select name="system.pericia">{{selectOptions config.periciasAtaque selected=system.pericia}}</select>
+    </label>
+    <label>Bônus de ataque <input type="number" name="system.bonusAtaque" value="{{system.bonusAtaque}}" /></label>
+    <label>Dano <input type="text" name="system.dano" value="{{system.dano}}" placeholder="1d8" /></label>
+    <label>Tipo de dano
+      <select name="system.tipoDano">{{selectOptions config.tiposDano selected=system.tipoDano}}</select>
+    </label>
+    <label>Margem de ameaça <input type="number" name="system.margem" value="{{system.margem}}" min="1" max="20" /></label>
+    <label>Multiplicador <input type="number" name="system.multiplicador" value="{{system.multiplicador}}" min="2" /></label>
+    <label>Alcance <input type="text" name="system.alcance" value="{{system.alcance}}" /></label>
+    {{/if}}
+
+    {{#if (eq item.type "armadura")}}
+    <label>Bônus na Defesa <input type="number" name="system.defesa" value="{{system.defesa}}" min="0" /></label>
+    <label>Penalidade <input type="number" name="system.penalidade" value="{{system.penalidade}}" min="0" /></label>
+    <label class="t20s-check">Escudo <input type="checkbox" name="system.escudo" {{checked system.escudo}} /></label>
+    {{/if}}
+
+    {{#if (or (eq item.type "arma") (eq item.type "armadura"))}}
+    <label class="t20s-check">Equipada <input type="checkbox" name="system.equipada" {{checked system.equipada}} /></label>
+    <label>Espaços <input type="number" name="system.espacos" value="{{system.espacos}}" step="0.5" min="0" /></label>
+    <label>Preço <input type="text" name="system.preco" value="{{system.preco}}" /></label>
+    {{/if}}
+
+    {{#if (eq item.type "magia")}}
+    <label>Tipo <select name="system.tipo">{{selectOptions config.tiposMagia selected=system.tipo}}</select></label>
+    <label>Círculo <input type="number" name="system.circulo" value="{{system.circulo}}" min="1" max="5" /></label>
+    <label>Custo <span class="t20s-valor">{{system.custo}} PM</span></label>
+    <label>Escola <input type="text" name="system.escola" value="{{system.escola}}" /></label>
+    <label>Execução <input type="text" name="system.execucao" value="{{system.execucao}}" /></label>
+    <label>Alcance <input type="text" name="system.alcance" value="{{system.alcance}}" /></label>
+    <label>Alvo/Área <input type="text" name="system.alvo" value="{{system.alvo}}" /></label>
+    <label>Duração <input type="text" name="system.duracao" value="{{system.duracao}}" /></label>
+    <label>Resistência <input type="text" name="system.resistencia" value="{{system.resistencia}}" placeholder="Vontade anula" /></label>
+    <label>Atributo da CD
+      <select name="system.atributo">{{selectOptions config.atributosAbr selected=system.atributo}}</select>
+    </label>
+    {{/if}}
+
+    {{#if (eq item.type "poder")}}
+    <label>Tipo <select name="system.tipo">{{selectOptions config.tiposPoder selected=system.tipo}}</select></label>
+    <label>Custo (PM) <input type="number" name="system.custo" value="{{system.custo}}" min="0" /></label>
+    <label>Pré-requisito <input type="text" name="system.preRequisito" value="{{system.preRequisito}}" /></label>
+    {{/if}}
+  </div>
+
+  <div class="descricao">
+    {{formInput fields.descricao name="system.descricao" value=system.descricao enriched=descricaoEnriquecida toggled=true}}
+  </div>
+</div>

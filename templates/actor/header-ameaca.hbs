@@ -1,0 +1,47 @@
+<header class="t20s-header">
+  <img class="t20s-retrato" src="{{actor.img}}" alt="{{actor.name}}" data-action="editarImagem" />
+
+  <div class="t20s-identidade">
+    <div class="t20s-nome-linha">
+      <input class="t20s-nome" type="text" name="name" value="{{actor.name}}" placeholder="Nome" />
+      <label class="t20s-nivel">
+        <span>ND</span>
+        <input type="text" name="system.nd" value="{{system.nd}}" />
+      </label>
+      <label class="t20s-nivel" data-tooltip="Usado como nível no cálculo das perícias">
+        <span>Nível</span>
+        <input type="number" name="system.nivel" value="{{system.nivel}}" min="1" max="20" />
+      </label>
+    </div>
+
+    <div class="t20s-recursos">
+      <div class="t20s-recurso pv">
+        <span class="t20s-recurso-nome">PV</span>
+        <div class="t20s-barra">
+          <span class="t20s-barra-fill" style="width: {{pvPct}}%"></span>
+          <div class="t20s-barra-valores">
+            <input type="number" name="system.pv.value" value="{{system.pv.value}}" />
+            <span>/</span>
+            <input type="number" name="system.pv.max" value="{{system.pv.max}}" />
+          </div>
+        </div>
+      </div>
+      <div class="t20s-recurso pm">
+        <span class="t20s-recurso-nome">PM</span>
+        <div class="t20s-barra">
+          <span class="t20s-barra-fill" style="width: {{pmPct}}%"></span>
+          <div class="t20s-barra-valores">
+            <input type="number" name="system.pm.value" value="{{system.pm.value}}" />
+            <span>/</span>
+            <input type="number" name="system.pm.max" value="{{system.pm.max}}" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="t20s-defesa">
+    <span class="t20s-defesa-rotulo">Defesa</span>
+    <input class="t20s-defesa-valor" type="number" name="system.defesa.total" value="{{system.defesa.total}}" />
+  </div>
+</header>

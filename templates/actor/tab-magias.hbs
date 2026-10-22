@@ -1,0 +1,39 @@
+<section class="tab t20s-tab magias {{tab.cssClass}}" data-group="primary" data-tab="magias">
+  <div class="t20s-lista-cabecalho">
+    <h3>Poderes</h3>
+    {{#if editable}}<a data-action="criarItem" data-type="poder" title="Adicionar"><i class="fa-solid fa-plus"></i></a>{{/if}}
+  </div>
+  <ul class="t20s-lista">
+    {{#each poderes as |item|}}
+    <li class="t20s-item" data-item-id="{{item.id}}">
+      <img src="{{item.img}}" alt="" data-action="usarItem" />
+      <a class="t20s-item-nome" data-action="usarItem">{{item.name}}</a>
+      <span class="t20s-item-info">
+        {{lookup @root.config.tiposPoder item.system.tipo}}{{#if item.system.custo}} · {{item.system.custo}} PM{{/if}}
+      </span>
+      <div class="t20s-item-controles">
+        <a data-action="editarItem" title="Editar"><i class="fa-solid fa-pen"></i></a>
+        <a data-action="apagarItem" title="Apagar"><i class="fa-solid fa-trash"></i></a>
+      </div>
+    </li>
+    {{/each}}
+  </ul>
+
+  <div class="t20s-lista-cabecalho">
+    <h3>Magias</h3>
+    {{#if editable}}<a data-action="criarItem" data-type="magia" title="Adicionar"><i class="fa-solid fa-plus"></i></a>{{/if}}
+  </div>
+  <ul class="t20s-lista">
+    {{#each magias as |item|}}
+    <li class="t20s-item" data-item-id="{{item.id}}">
+      <img src="{{item.img}}" alt="" data-action="usarItem" />
+      <a class="t20s-item-nome" data-action="usarItem">{{item.name}}</a>
+      <span class="t20s-item-info">{{item.system.circulo}}º · {{item.system.custo}} PM · {{item.system.execucao}}</span>
+      <div class="t20s-item-controles">
+        <a data-action="editarItem" title="Editar"><i class="fa-solid fa-pen"></i></a>
+        <a data-action="apagarItem" title="Apagar"><i class="fa-solid fa-trash"></i></a>
+      </div>
+    </li>
+    {{/each}}
+  </ul>
+</section>

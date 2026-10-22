@@ -1,0 +1,53 @@
+<section class="tab t20s-tab principal {{tab.cssClass}}" data-group="primary" data-tab="principal">
+  <ul class="t20s-atributos">
+    {{#each atributos as |atr|}}
+    <li class="t20s-atributo">
+      <a class="t20s-atributo-nome" data-action="rolarAtributo" data-atributo="{{atr.key}}">{{atr.abr}}</a>
+      <input type="number" name="system.atributos.{{atr.key}}.valor" value="{{atr.valor}}" />
+    </li>
+    {{/each}}
+  </ul>
+
+  <div class="t20s-colunas">
+    <table class="t20s-pericias">
+      <thead>
+        <tr><th title="Treinada">T</th><th>Perícia</th><th>Atr.</th><th>Outros</th><th>Total</th></tr>
+      </thead>
+      <tbody>
+        {{#each pericias as |p|}}
+        <tr class="{{#if p.treinada}}treinada{{/if}} {{#if (and p.somenteTreinada (not p.treinada))}}bloqueada{{/if}}">
+          <td>
+            <input type="checkbox" name="system.pericias.{{p.key}}.treinada" {{checked p.treinada}} />
+          </td>
+          <td>
+            <a data-action="rolarPericia" data-pericia="{{p.key}}">{{p.label}}{{#if p.somenteTreinada}}*{{/if}}</a>
+          </td>
+          <td class="t20s-abr">{{lookup @root.config.atributosAbr p.atributo}}</td>
+          <td><input type="number" name="system.pericias.{{p.key}}.outros" value="{{p.outros}}" /></td>
+          <td class="t20s-total">{{numberFormat p.total sign=true}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    <div class="t20s-coluna">
+      <h3>Ataques</h3>
+      <ul class="t20s-lista">
+        {{#each armas as |arma|}}
+        <li class="t20s-item" data-item-id="{{arma.id}}">
+          <img src="{{arma.img}}" alt="" data-action="usarItem" />
+          <a class="t20s-item-nome" data-action="usarItem">{{arma.name}}</a>
+          <span class="t20s-item-info">{{arma.system.dano}} · {{arma.system.critico}}</span>
+        </li>
+        {{else}}
+        <li class="t20s-vazio">Adicione armas no inventário.</li>
+        {{/each}}
+      </ul>
+
+      <h3>Deslocamento</h3>
+      <label class="t20s-campo">
+        <input type="number" name="system.deslocamento" value="{{system.deslocamento}}" /> m
+      </label>
+    </div>
+  </div>
+</section>
