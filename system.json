@@ -3,28 +3,150 @@
   "title": "Tormenta20 — Sistema Próprio",
   "description": "Sistema para Foundry VTT v13 com as regras de Tormenta20 implementadas do zero.",
   "version": "0.1.0",
-  "authors": [{ "name": "Pedro Borja" }],
+  "authors": [
+    {
+      "name": "Pedro Borja"
+    }
+  ],
   "compatibility": {
     "minimum": "13",
     "verified": "13"
   },
-  "esmodules": ["t20-sistema.mjs"],
-  "styles": ["styles/t20-sistema.css"],
-  "languages": [{ "lang": "pt-BR", "name": "Português (Brasil)", "path": "lang/pt-BR.json" }],
+  "esmodules": [
+    "t20-sistema.mjs"
+  ],
+  "styles": [
+    "styles/t20-sistema.css"
+  ],
+  "languages": [
+    {
+      "lang": "pt-BR",
+      "name": "Português (Brasil)",
+      "path": "lang/pt-BR.json"
+    }
+  ],
   "documentTypes": {
     "Actor": {
-      "personagem": { "htmlFields": ["biografia"] },
-      "ameaca": { "htmlFields": ["descricao"] }
+      "personagem": {
+        "htmlFields": [
+          "biografia"
+        ]
+      },
+      "ameaca": {
+        "htmlFields": [
+          "descricao"
+        ]
+      }
     },
     "Item": {
-      "arma": { "htmlFields": ["descricao"] },
-      "armadura": { "htmlFields": ["descricao"] },
-      "magia": { "htmlFields": ["descricao"] },
-      "poder": { "htmlFields": ["descricao"] }
+      "arma": {
+        "htmlFields": [
+          "descricao"
+        ]
+      },
+      "armadura": {
+        "htmlFields": [
+          "descricao"
+        ]
+      },
+      "magia": {
+        "htmlFields": [
+          "descricao"
+        ]
+      },
+      "poder": {
+        "htmlFields": [
+          "descricao"
+        ]
+      },
+      "raca": {
+        "htmlFields": [
+          "descricao"
+        ]
+      },
+      "consumivel": {
+        "htmlFields": [
+          "descricao"
+        ]
+      }
     }
   },
   "primaryTokenAttribute": "pv",
   "secondaryTokenAttribute": "pm",
-  "grid": { "type": 1, "distance": 1.5, "units": "m" },
-  "initiative": "1d20 + @pericias.iniciativa.total"
+  "grid": {
+    "type": 1,
+    "distance": 1.5,
+    "units": "m"
+  },
+  "initiative": "1d20 + @pericias.iniciativa.total",
+  "packs": [
+    {
+      "name": "racas",
+      "label": "Raças",
+      "path": "packs/racas",
+      "type": "Item",
+      "system": "t20-sistema",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "magias",
+      "label": "Magias",
+      "path": "packs/magias",
+      "type": "Item",
+      "system": "t20-sistema",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "armas",
+      "label": "Armas",
+      "path": "packs/armas",
+      "type": "Item",
+      "system": "t20-sistema",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "armaduras",
+      "label": "Armaduras e Escudos",
+      "path": "packs/armaduras",
+      "type": "Item",
+      "system": "t20-sistema",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "itens",
+      "label": "Itens",
+      "path": "packs/itens",
+      "type": "Item",
+      "system": "t20-sistema",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "Tormenta20",
+      "sorting": "m",
+      "packs": [
+        "racas",
+        "magias",
+        "armas",
+        "armaduras",
+        "itens"
+      ]
+    }
+  ]
 }

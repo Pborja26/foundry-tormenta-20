@@ -1,0 +1,110 @@
+[
+  {
+    "name": "Armadura acolchoada",
+    "preco": "T$ 5",
+    "tipo": "leve",
+    "defesa": 1,
+    "penalidade": 0,
+    "espacos": 2.0,
+    "pagina": 153
+  },
+  {
+    "name": "Armadura de couro",
+    "preco": "T$ 20",
+    "tipo": "leve",
+    "defesa": 2,
+    "penalidade": 0,
+    "espacos": 2.0,
+    "pagina": 153
+  },
+  {
+    "name": "Couro batido",
+    "preco": "T$ 35",
+    "tipo": "leve",
+    "defesa": 3,
+    "penalidade": 1,
+    "espacos": 2.0,
+    "pagina": 153
+  },
+  {
+    "name": "Gibão de peles",
+    "preco": "T$ 25",
+    "tipo": "leve",
+    "defesa": 4,
+    "penalidade": 3,
+    "espacos": 2.0,
+    "pagina": 153
+  },
+  {
+    "name": "Couraça",
+    "preco": "T$ 500",
+    "tipo": "leve",
+    "defesa": 5,
+    "penalidade": 4,
+    "espacos": 2.0,
+    "pagina": 153
+  },
+  {
+    "name": "Brunea",
+    "preco": "T$ 50",
+    "tipo": "pesada",
+    "defesa": 5,
+    "penalidade": 2,
+    "espacos": 5.0,
+    "pagina": 153
+  },
+  {
+    "name": "Cota de malha",
+    "preco": "T$ 150",
+    "tipo": "pesada",
+    "defesa": 6,
+    "penalidade": 2,
+    "espacos": 5.0,
+    "pagina": 153
+  },
+  {
+    "name": "Loriga segmentada",
+    "preco": "T$ 250",
+    "tipo": "pesada",
+    "defesa": 7,
+    "penalidade": 3,
+    "espacos": 5.0,
+    "pagina": 153
+  },
+  {
+    "name": "Meia armadura",
+    "preco": "T$ 600",
+    "tipo": "pesada",
+    "defesa": 8,
+    "penalidade": 4,
+    "espacos": 5.0,
+    "pagina": 153
+  },
+  {
+    "name": "Armadura completa",
+    "preco": "T$ 3.000",
+    "tipo": "pesada",
+    "defesa": 10,
+    "penalidade": 5,
+    "espacos": 5.0,
+    "pagina": 153
+  },
+  {
+    "name": "Escudo leve",
+    "preco": "T$ 5",
+    "tipo": "escudo",
+    "defesa": 1,
+    "penalidade": 1,
+    "espacos": 1.0,
+    "pagina": 153
+  },
+  {
+    "name": "Escudo pesado",
+    "preco": "T$ 15",
+    "tipo": "escudo",
+    "defesa": 2,
+    "penalidade": 2,
+    "espacos": 2.0,
+    "pagina": 153
+  }
+]

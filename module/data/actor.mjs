@@ -1,6 +1,7 @@
 import { T20S } from "../config.mjs";
+import { calcularDefesa, calcularDeslocamento, calcularPericia, descreverPartes, meioNivel } from "../regras.mjs";
 
-const { SchemaField, NumberField, StringField, BooleanField, HTMLField } = foundry.data.fields;
+const { SchemaField, NumberField, StringField, BooleanField, HTMLField, TypedObjectField } = foundry.data.fields;
 
 const inteiro = (initial = 0, opts = {}) =>
   new NumberField({ required: true, nullable: false, integer: true, initial, ...opts });
@@ -29,27 +30,95 @@ class CriaturaData extends foundry.abstract.TypeDataModel {
     return {
       atributos: new SchemaField(atributos),
       pericias: new SchemaField(pericias),
+      /** Ofícios cadastrados pelo usuário, indexados por um id aleatório. */
+      oficios: new TypedObjectField(
+        new SchemaField({
+          nome: new StringField({ required: true, initial: "Ofício" }),
+          atributo: new StringField({ required: true, initial: T20S.oficio.atributo, choices: T20S.atributosAbr }),
+          treinada: new BooleanField({ initial: false }),
+          outros: inteiro(0)
+        })
+      ),
       pv: recurso(10),
       pm: recurso(0),
       nivel: inteiro(1, { min: 1, max: 20 }),
+      tamanho: new StringField({ required: true, initial: "medio", choices: T20S.tamanhos }),
       deslocamento: inteiro(9, { min: 0 })
     };
   }
 
+  /** A perícia fixa "oficio" virou a lista system.oficios; leva o que havia nela para um ofício. */
+  static migrateData(source) {
+    const antigo = source.pericias?.oficio;
+    if (antigo && !source.oficios && (antigo.treinada || antigo.outros)) {
+      source.oficios = {
+        [foundry.utils.randomID()]: { nome: "Ofício", atributo: "int", treinada: antigo.treinada, outros: antigo.outros }
+      };
+    }
+    return super.migrateData(source);
+  }
+
   /** Metade do nível, arredondada para baixo. Para ameaças o "nível" funciona como ND. */
   get meioNivel() {
-    return Math.floor(this.nivel / 2);
+    return meioNivel(this.nivel);
+  }
+
+  /** Penalidade de armadura aplicada nas perícias. Personagens calculam pelos itens equipados. */
+  get penalidadeArmadura() {
+    return 0;
+  }
+
+  /** Item de raça do personagem (no máximo um). */
+  get raca() {
+    return this.parent.itemTypes.raca?.[0] ?? null;
   }
 
   prepareDerivedData() {
-    const treino = T20S.bonusTreino(this.nivel);
+    // Atributo: "valor" é o que o jogador define (pontos/rolagem); "total" soma a raça.
+    const bonusRacial = this.raca?.system.bonus ?? {};
+    for (const [key, atr] of Object.entries(this.atributos)) {
+      atr.racial = bonusRacial[key] ?? 0;
+      atr.total = atr.valor + atr.racial;
+    }
+
+    this.prepararDefesa?.();
+
+    const atributos = Object.fromEntries(Object.entries(this.atributos).map(([k, a]) => [k, a.total]));
     for (const [key, cfg] of Object.entries(T20S.pericias)) {
       const pericia = this.pericias[key];
-      pericia.label = cfg.label;
-      pericia.atributo = cfg.atributo;
-      pericia.somenteTreinada = !!cfg.somenteTreinada;
-      pericia.total =
-        this.meioNivel + this.atributos[cfg.atributo].valor + (pericia.treinada ? treino : 0) + pericia.outros;
+      const { total, partes } = calcularPericia({
+        key,
+        nivel: this.nivel,
+        atributos,
+        treinada: pericia.treinada,
+        outros: pericia.outros,
+        penalidadeArmadura: this.penalidadeArmadura,
+        tamanho: this.tamanho
+      });
+      Object.assign(pericia, {
+        label: cfg.label,
+        atributo: cfg.atributo,
+        somenteTreinada: !!cfg.somenteTreinada,
+        total,
+        detalhe: descreverPartes(partes, total)
+      });
+    }
+
+    for (const [id, oficio] of Object.entries(this.oficios)) {
+      const { total, partes } = calcularPericia({
+        cfg: { atributo: oficio.atributo },
+        nivel: this.nivel,
+        atributos,
+        treinada: oficio.treinada,
+        outros: oficio.outros
+      });
+      Object.assign(oficio, {
+        id,
+        label: `Ofício (${oficio.nome})`,
+        somenteTreinada: T20S.oficio.somenteTreinada,
+        total,
+        detalhe: descreverPartes(partes, total)
+      });
     }
   }
 }
@@ -64,7 +133,6 @@ export class PersonagemData extends CriaturaData {
         outros: inteiro(0)
       }),
       detalhes: new SchemaField({
-        raca: new StringField({ initial: "" }),
         classe: new StringField({ initial: "" }),
         origem: new StringField({ initial: "" }),
         divindade: new StringField({ initial: "" })
@@ -73,18 +141,22 @@ export class PersonagemData extends CriaturaData {
     };
   }
 
-  prepareDerivedData() {
-    super.prepareDerivedData();
+  get penalidadeArmadura() {
+    return this.defesa.penalidade ?? 0;
+  }
 
-    // Defesa = 10 + atributo + armadura/escudo equipados + outros
-    const armaduras = this.parent.items.filter((i) => i.type === "armadura" && i.system.equipada);
-    const bonusArmadura = armaduras.reduce((soma, a) => soma + a.system.defesa, 0);
-    this.defesa.armadura = bonusArmadura;
-    this.defesa.total = 10 + this.atributos[this.defesa.atributo].valor + bonusArmadura + this.defesa.outros;
-
-    // Penalidade de armadura afeta Acrobacia, Furtividade e Ladinagem
-    const penalidade = armaduras.reduce((soma, a) => soma + a.system.penalidade, 0);
-    for (const key of ["acrobacia", "furtividade", "ladinagem"]) this.pericias[key].total -= penalidade;
+  prepararDefesa() {
+    const equipadas = this.parent.items
+      .filter((i) => i.type === "armadura" && i.system.equipada)
+      .map((i) => i.system.paraCalculo());
+    const { total, partes, penalidade, pesada } = calcularDefesa({
+      atributo: this.atributos[this.defesa.atributo].total,
+      atributoChave: this.defesa.atributo,
+      equipadas,
+      outros: this.defesa.outros
+    });
+    Object.assign(this.defesa, { total, penalidade, pesada, detalhe: descreverPartes(partes, total) });
+    this.deslocamentoTotal = calcularDeslocamento(this.deslocamento, pesada);
   }
 }
 
@@ -96,5 +168,10 @@ export class AmeacaData extends CriaturaData {
       defesa: new SchemaField({ total: inteiro(10) }),
       descricao: new HTMLField({ initial: "" })
     };
+  }
+
+  prepareDerivedData() {
+    super.prepareDerivedData();
+    this.deslocamentoTotal = this.deslocamento;
   }
 }

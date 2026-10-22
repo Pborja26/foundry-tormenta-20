@@ -1,0 +1,110 @@
+<div class="t20s-item-sheet t20s-raca">
+  <header class="t20s-item-header">
+    <img src="{{item.img}}" alt="{{item.name}}" data-action="editImage" data-edit="img" />
+    <div class="t20s-raca-titulo">
+      <input class="t20s-nome" type="text" name="name" value="{{item.name}}" />
+      <span class="t20s-raca-resumo">{{system.resumo}}</span>
+    </div>
+  </header>
+
+  <section>
+    <h3>Modificadores de atributo</h3>
+    <div class="t20s-raca-atributos">
+      {{#each atributosFixos as |a|}}
+      <label>{{a.abr}} <input type="number" name="system.atributos.{{a.key}}" value="{{a.valor}}" /></label>
+      {{/each}}
+    </div>
+
+    <div class="t20s-campos">
+      <label>Atributos à escolha
+        <input type="number" name="system.escolhas.quantidade" value="{{system.escolhas.quantidade}}" min="0" max="6" />
+      </label>
+      <label>Bônus em cada um
+        <input type="number" name="system.escolhas.valor" value="{{system.escolhas.valor}}" />
+      </label>
+    </div>
+    {{#if system.escolhas.quantidade}}
+    <label class="t20s-rotulo">Não podem ser escolhidos</label>
+    <multi-checkbox name="system.escolhas.excluir" class="t20s-multi">
+      {{#each opcoesExcluir as |o|}}<option value="{{o.value}}" {{#if o.selected}}selected{{/if}}>{{o.label}}</option>{{/each}}
+    </multi-checkbox>
+    {{/if}}
+
+    {{#if system.escolhas.quantidade}}
+    <div class="t20s-raca-escolha {{#if (or system.escolhasPendentes escolhasExcedentes)}}pendente{{/if}}">
+      {{#if noPersonagem}}
+      <label class="t20s-rotulo">
+        Escolha {{system.escolhas.quantidade}} atributo(s) para +{{system.escolhas.valor}}
+        {{#if system.escolhasPendentes}}— falta(m) {{system.escolhasPendentes}}{{/if}}
+        {{#if escolhasExcedentes}}— marcados a mais; só os primeiros {{system.escolhas.quantidade}} contam{{/if}}
+      </label>
+      <multi-checkbox name="system.escolhidos" class="t20s-multi">
+        {{#each opcoesEscolha as |o|}}<option value="{{o.value}}" {{#if o.selected}}selected{{/if}}>{{o.label}}</option>{{/each}}
+      </multi-checkbox>
+      {{else}}
+      <p class="t20s-dica">A escolha dos atributos é feita depois de adicionar a raça a um personagem.</p>
+      {{/if}}
+    </div>
+    {{/if}}
+  </section>
+
+  <section class="t20s-campos">
+    <label>Tamanho
+      <select name="system.tamanho">{{selectOptions config.tamanhos selected=system.tamanho}}</select>
+    </label>
+    <label>Deslocamento (m)
+      <input type="number" name="system.deslocamento" value="{{system.deslocamento}}" min="0" />
+    </label>
+  </section>
+
+  <section>
+    <div class="t20s-lista-cabecalho">
+      <h3>Habilidades de raça</h3>
+      {{#if editable}}<a data-action="adicionarHabilidade" title="Adicionar"><i class="fa-solid fa-plus"></i></a>{{/if}}
+    </div>
+    <ul class="t20s-lista">
+      {{#each habilidades as |h|}}
+      <li class="t20s-habilidade" data-habilidade-id="{{h.id}}">
+        <div class="t20s-habilidade-topo">
+          <input type="text" name="system.habilidades.{{h.id}}.nome" value="{{h.nome}}" />
+          {{#if @root.editable}}<a data-action="removerHabilidade" title="Remover"><i class="fa-solid fa-trash"></i></a>{{/if}}
+        </div>
+        <textarea name="system.habilidades.{{h.id}}.descricao" rows="3" placeholder="Descrição da habilidade">{{h.descricao}}</textarea>
+      </li>
+      {{else}}
+      <li class="t20s-vazio">Nenhuma habilidade.</li>
+      {{/each}}
+    </ul>
+  </section>
+
+  <section>
+    <div class="t20s-lista-cabecalho">
+      <h3>Efeitos automáticos</h3>
+      {{#if editable}}<a data-action="criarEfeito" title="Adicionar efeito"><i class="fa-solid fa-plus"></i></a>{{/if}}
+    </div>
+    <p class="t20s-dica">
+      Bônus que a raça aplica sozinha na ficha. Exemplos de chave (modo Adicionar):
+      <code>system.pericias.percepcao.outros</code>, <code>system.defesa.outros</code>, <code>system.pv.max</code>.
+    </p>
+    <ul class="t20s-lista">
+      {{#each efeitos as |e|}}
+      <li class="t20s-item" data-efeito-id="{{e.id}}">
+        <img src="{{e.img}}" alt="" />
+        <span class="t20s-item-nome {{#if e.disabled}}desativado{{/if}}">{{e.name}}</span>
+        <div class="t20s-item-controles">
+          <a data-action="alternarEfeito" title="{{#if e.disabled}}Ativar{{else}}Desativar{{/if}}">
+            <i class="fa-solid {{#if e.disabled}}fa-toggle-off{{else}}fa-toggle-on{{/if}}"></i>
+          </a>
+          <a data-action="editarEfeito" title="Editar"><i class="fa-solid fa-pen"></i></a>
+          <a data-action="apagarEfeito" title="Apagar"><i class="fa-solid fa-trash"></i></a>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </section>
+
+  <section class="descricao">
+    <h3>Descrição</h3>
+    {{formInput fields.descricao name="system.descricao" value=system.descricao enriched=descricaoEnriquecida toggled=true}}
+  </section>
+</div>

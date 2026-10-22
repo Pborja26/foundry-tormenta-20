@@ -9,26 +9,56 @@
     <label>Perícia
       <select name="system.pericia">{{selectOptions config.periciasAtaque selected=system.pericia}}</select>
     </label>
-    <label>Bônus de ataque <input type="number" name="system.bonusAtaque" value="{{system.bonusAtaque}}" /></label>
+    <label>Atributo do ataque
+      <select name="system.atributoAtaque" data-tooltip="Troque para DES com o poder Acuidade com Arma (armas leves ou ágeis)">
+        {{selectOptions fields.atributoAtaque.choices selected=system.atributoAtaque}}
+      </select>
+    </label>
+    <label>Proficiência
+      <select name="system.proficiencia">{{selectOptions config.proficiencias selected=system.proficiencia}}</select>
+    </label>
+    <label>Empunhadura
+      <select name="system.empunhadura">{{selectOptions config.empunhaduras selected=system.empunhadura}}</select>
+    </label>
     <label>Dano <input type="text" name="system.dano" value="{{system.dano}}" placeholder="1d8" /></label>
+    <label>Dano alternativo <input type="text" name="system.danoAlternativo" value="{{system.danoAlternativo}}" placeholder="ex.: 1d12 com duas mãos" /></label>
     <label>Tipo de dano
       <select name="system.tipoDano">{{selectOptions config.tiposDano selected=system.tipoDano}}</select>
     </label>
+    <label>Bônus de ataque <input type="number" name="system.bonusAtaque" value="{{system.bonusAtaque}}" /></label>
     <label>Margem de ameaça <input type="number" name="system.margem" value="{{system.margem}}" min="1" max="20" /></label>
     <label>Multiplicador <input type="number" name="system.multiplicador" value="{{system.multiplicador}}" min="2" /></label>
     <label>Alcance <input type="text" name="system.alcance" value="{{system.alcance}}" /></label>
+    <label>Habilidades <input type="text" name="system.habilidades" value="{{system.habilidades}}" placeholder="Alongada, Versátil..." /></label>
+    <label class="t20s-check">Ágil <input type="checkbox" name="system.agil" {{checked system.agil}} /></label>
+    <label class="t20s-check">Arremesso (soma Força no dano) <input type="checkbox" name="system.arremesso" {{checked system.arremesso}} /></label>
     {{/if}}
 
     {{#if (eq item.type "armadura")}}
+    <label>Tipo <select name="system.tipo">{{selectOptions config.tiposArmadura selected=system.tipo}}</select></label>
     <label>Bônus na Defesa <input type="number" name="system.defesa" value="{{system.defesa}}" min="0" /></label>
     <label>Penalidade <input type="number" name="system.penalidade" value="{{system.penalidade}}" min="0" /></label>
-    <label class="t20s-check">Escudo <input type="checkbox" name="system.escudo" {{checked system.escudo}} /></label>
+    <label>Com modificações
+      <span class="t20s-valor">Defesa +{{armaduraEfetiva.defesa}} · Penalidade −{{armaduraEfetiva.penalidade}}</span>
+    </label>
     {{/if}}
 
     {{#if (or (eq item.type "arma") (eq item.type "armadura"))}}
     <label class="t20s-check">Equipada <input type="checkbox" name="system.equipada" {{checked system.equipada}} /></label>
     <label>Espaços <input type="number" name="system.espacos" value="{{system.espacos}}" step="0.5" min="0" /></label>
     <label>Preço <input type="text" name="system.preco" value="{{system.preco}}" /></label>
+    {{/if}}
+
+    {{#if (eq item.type "consumivel")}}
+    <label>Categoria
+      <select name="system.categoria">{{selectOptions config.categoriasConsumivel selected=system.categoria}}</select>
+    </label>
+    <label>Quantidade <input type="number" name="system.quantidade" value="{{system.quantidade}}" min="0" /></label>
+    <label>Espaços <input type="number" name="system.espacos" value="{{system.espacos}}" step="0.5" min="0" /></label>
+    <label>Preço <input type="text" name="system.preco" value="{{system.preco}}" /></label>
+    <label>Execução <input type="text" name="system.execucao" value="{{system.execucao}}" /></label>
+    <label>Alcance <input type="text" name="system.alcance" value="{{system.alcance}}" /></label>
+    <label class="t20s-check">Gasta uma unidade ao usar <input type="checkbox" name="system.consumir" {{checked system.consumir}} /></label>
     {{/if}}
 
     {{#if (eq item.type "magia")}}
@@ -52,6 +82,118 @@
     <label>Pré-requisito <input type="text" name="system.preRequisito" value="{{system.preRequisito}}" /></label>
     {{/if}}
   </div>
+
+  {{!-- Efeito ao usar (itens utilizáveis) --}}
+  {{#if (eq item.type "consumivel")}}
+  <section class="t20s-secao">
+    <h3>Efeito ao usar</h3>
+    <div class="t20s-campos">
+      <label>Tipo
+        <select name="system.efeito.tipo">{{selectOptions config.efeitosConsumivel selected=system.efeito.tipo}}</select>
+      </label>
+      <label>Fórmula <input type="text" name="system.efeito.formula" value="{{system.efeito.formula}}" placeholder="2d4" /></label>
+      <label>Tipo de dano
+        <select name="system.efeito.tipoDano">{{selectOptions fields.efeito.fields.tipoDano.choices selected=system.efeito.tipoDano}}</select>
+      </label>
+      <label>Rodadas (venenos) <input type="number" name="system.efeito.rodadas" value="{{system.efeito.rodadas}}" min="0" /></label>
+      <label>Resistência <input type="text" name="system.efeito.resistencia" value="{{system.efeito.resistencia}}" placeholder="Reflexos reduz à metade" /></label>
+      <label>Atributo da CD
+        <select name="system.efeito.atributoCd">{{selectOptions fields.efeito.fields.atributoCd.choices selected=system.efeito.atributoCd}}</select>
+      </label>
+    </div>
+    <p class="t20s-dica">Cura, PM e PV/PM temporários são aplicados nos alvos marcados (ou em quem usa). Dano só é rolado.</p>
+  </section>
+  {{/if}}
+
+  {{!-- Melhorias e encantos --}}
+  {{#if (or (eq item.type "arma") (eq item.type "armadura"))}}
+  <section class="t20s-secao">
+    <div class="t20s-lista-cabecalho">
+      <h3>Melhorias e encantos</h3>
+      {{#if editable}}
+      <div class="t20s-add-mod">
+        <select class="t20s-preset-modificacao">
+          <option value="">Personalizada</option>
+          <optgroup label="Melhorias">
+            {{#each presetsMelhoria as |p|}}<option value="{{p.nome}}">{{p.nome}}</option>{{/each}}
+          </optgroup>
+          <optgroup label="Encantos">
+            {{#each presetsEncanto as |p|}}<option value="{{p.nome}}">{{p.nome}}</option>{{/each}}
+          </optgroup>
+        </select>
+        <a data-action="adicionarModificacao" title="Adicionar"><i class="fa-solid fa-plus"></i></a>
+      </div>
+      {{/if}}
+    </div>
+
+    <ul class="t20s-lista">
+      {{#each modificacoes as |m|}}
+      <li class="t20s-mod {{#unless m.ativa}}inativa{{/unless}} {{#if m.substituida}}substituida{{/if}}" data-modificacao-id="{{m.id}}">
+        <div class="t20s-mod-topo">
+          <input type="checkbox" name="system.modificacoes.{{m.id}}.ativa" {{checked m.ativa}} title="Ativa" />
+          <input class="t20s-mod-nome" type="text" name="system.modificacoes.{{m.id}}.nome" value="{{m.nome}}" />
+          <select name="system.modificacoes.{{m.id}}.tipo">
+            {{selectOptions @root.fields.modificacoes.element.fields.tipo.choices selected=m.tipo}}
+          </select>
+          {{#if m.substituida}}<span class="t20s-dica">substituída</span>{{/if}}
+          {{#if @root.editable}}<a data-action="removerModificacao" title="Remover"><i class="fa-solid fa-trash"></i></a>{{/if}}
+        </div>
+        <div class="t20s-mod-campos">
+          {{#if (eq @root.item.type "arma")}}
+          <label>Ataque <input type="number" name="system.modificacoes.{{m.id}}.ataque" value="{{m.ataque}}" /></label>
+          <label>Dano <input type="number" name="system.modificacoes.{{m.id}}.dano" value="{{m.dano}}" /></label>
+          <label>Dados extras <input type="text" name="system.modificacoes.{{m.id}}.dadosExtras" value="{{m.dadosExtras}}" placeholder="1d6" /></label>
+          <label>Tipo
+            <select name="system.modificacoes.{{m.id}}.tipoExtra">
+              <option value=""></option>
+              {{selectOptions @root.config.tiposDano selected=m.tipoExtra}}
+            </select>
+          </label>
+          <label>Margem <input type="number" name="system.modificacoes.{{m.id}}.margem" value="{{m.margem}}" /></label>
+          <label>Multiplic. <input type="number" name="system.modificacoes.{{m.id}}.multiplicador" value="{{m.multiplicador}}" /></label>
+          <label>Dano no crítico <input type="number" name="system.modificacoes.{{m.id}}.danoCritico" value="{{m.danoCritico}}" /></label>
+          <label class="t20s-check">Dobra margem <input type="checkbox" name="system.modificacoes.{{m.id}}.margemDobrada" {{checked m.margemDobrada}} /></label>
+          {{else}}
+          <label>Defesa <input type="number" name="system.modificacoes.{{m.id}}.defesa" value="{{m.defesa}}" /></label>
+          <label>Penalidade <input type="number" name="system.modificacoes.{{m.id}}.penalidade" value="{{m.penalidade}}" /></label>
+          <label>DES máx. (pesada) <input type="number" name="system.modificacoes.{{m.id}}.atributoMax" value="{{m.atributoMax}}" min="0" /></label>
+          {{/if}}
+          <label>Substitui <input type="text" name="system.modificacoes.{{m.id}}.substitui" value="{{m.substitui}}" /></label>
+        </div>
+        <input class="t20s-mod-descricao" type="text" name="system.modificacoes.{{m.id}}.descricao" value="{{m.descricao}}" placeholder="Observação" />
+      </li>
+      {{else}}
+      <li class="t20s-vazio">Nenhuma. Escolha uma melhoria ou encanto e clique em +.</li>
+      {{/each}}
+    </ul>
+  </section>
+  {{/if}}
+
+  {{!-- Efeitos (Active Effects) --}}
+  {{#if efeitosDica}}
+  <section class="t20s-secao">
+    <div class="t20s-lista-cabecalho">
+      <h3>Efeitos automáticos</h3>
+      {{#if editable}}<a data-action="criarEfeito" title="Adicionar efeito"><i class="fa-solid fa-plus"></i></a>{{/if}}
+    </div>
+    <p class="t20s-dica">{{efeitosDica}}</p>
+    <ul class="t20s-lista">
+      {{#each efeitos as |e|}}
+      <li class="t20s-item" data-efeito-id="{{e.id}}">
+        <img src="{{e.img}}" alt="" />
+        <span class="t20s-item-nome {{#if e.disabled}}desativado{{/if}}">{{e.name}}</span>
+        <div class="t20s-item-controles">
+          <a data-action="alternarEfeito" title="{{#if e.disabled}}Ativar{{else}}Desativar{{/if}}">
+            <i class="fa-solid {{#if e.disabled}}fa-toggle-off{{else}}fa-toggle-on{{/if}}"></i>
+          </a>
+          <a data-action="editarEfeito" title="Editar"><i class="fa-solid fa-pen"></i></a>
+          <a data-action="apagarEfeito" title="Apagar"><i class="fa-solid fa-trash"></i></a>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </section>
+  {{/if}}
 
   <div class="descricao">
     {{formInput fields.descricao name="system.descricao" value=system.descricao enriched=descricaoEnriquecida toggled=true}}

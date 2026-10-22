@@ -1,3 +1,5 @@
+import { descreverPartes, montarFormulaDano } from "../regras.mjs";
+
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
 
@@ -13,11 +15,16 @@ export class PersonagemSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     actions: {
       rolarPericia: PersonagemSheet.#onRolarPericia,
       rolarAtributo: PersonagemSheet.#onRolarAtributo,
+      rolarOficio: PersonagemSheet.#onRolarOficio,
+      adicionarOficio: PersonagemSheet.#onAdicionarOficio,
+      removerOficio: PersonagemSheet.#onRemoverOficio,
+      mostrarHabilidade: PersonagemSheet.#onMostrarHabilidade,
       usarItem: PersonagemSheet.#onUsarItem,
       editarItem: PersonagemSheet.#onEditarItem,
       apagarItem: PersonagemSheet.#onApagarItem,
       criarItem: PersonagemSheet.#onCriarItem,
       equipar: PersonagemSheet.#onEquipar,
+      alterarQuantidade: PersonagemSheet.#onAlterarQuantidade,
       editarImagem: PersonagemSheet.#onEditarImagem
     }
   };
@@ -60,13 +67,26 @@ export class PersonagemSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       atributos: Object.entries(system.atributos).map(([key, a]) => ({
         key,
         abr: CONFIG.T20S.atributosAbr[key],
-        valor: a.valor
+        valor: a.valor,
+        racial: a.racial,
+        total: a.total
       })),
+      raca: system.raca,
+      habilidadesRaca: Object.entries(system.raca?.system.habilidades ?? {}).map(([id, h]) => ({ id, ...h })),
       pericias: Object.entries(system.pericias).map(([key, p]) => ({ key, ...p })),
+      oficios: Object.values(system.oficios).sort((a, b) => a.nome.localeCompare(b.nome)),
       pvPct: pct(system.pv.value, system.pv.max),
       pmPct: pct(system.pm.value, system.pm.max),
-      armas: actor.itemTypes.arma,
-      armaduras: actor.itemTypes.armadura,
+      armas: actor.itemTypes.arma.map((arma) => this.#resumoArma(arma)),
+      armaduras: actor.itemTypes.armadura.map((item) => ({
+        id: item.id,
+        name: item.name,
+        img: item.img,
+        system: item.system,
+        efetiva: item.system.efetiva,
+        mods: item.system.listaModificacoes.filter((m) => m.ativa).length
+      })),
+      consumiveis: actor.itemTypes.consumivel,
       magias: actor.itemTypes.magia.sort((a, b) => a.system.circulo - b.system.circulo),
       poderes: actor.itemTypes.poder,
       textoCampo: this.constructor.CAMPO_TEXTO,
@@ -76,6 +96,23 @@ export class PersonagemSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       )
     });
     return context;
+  }
+
+  /** Dados prontos para a lista de ataques: bônus final, dano e crítico com modificações. */
+  #resumoArma(arma) {
+    const calc = this.document.dadosArma(arma);
+    const formula = montarFormulaDano({ dano: arma.system.dano, bonusDano: calc.bonusDano, extras: calc.extras });
+    return {
+      id: arma.id,
+      name: arma.name,
+      img: arma.img,
+      system: arma.system,
+      ataque: calc.ataque.total,
+      ataqueDetalhe: descreverPartes(calc.ataque.partes, calc.ataque.total),
+      dano: formula,
+      critico: calc.critico,
+      mods: calc.modificacoes.map((m) => m.nome).join(", ")
+    };
   }
 
   async _preparePartContext(partId, context, options) {
@@ -94,6 +131,28 @@ export class PersonagemSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     return this.document.rolarAtributo(target.dataset.atributo);
   }
 
+  static #onRolarOficio(event, target) {
+    return this.document.rolarOficio(target.closest("[data-oficio-id]").dataset.oficioId);
+  }
+
+  static #onAdicionarOficio() {
+    return this.document.adicionarOficio();
+  }
+
+  static async #onRemoverOficio(event, target) {
+    const id = target.closest("[data-oficio-id]").dataset.oficioId;
+    const oficio = this.document.system.oficios[id];
+    const confirmado = await foundry.applications.api.DialogV2.confirm({
+      window: { title: "Remover ofício" },
+      content: `<p>Remover <strong>${oficio.label}</strong>?</p>`
+    });
+    if (confirmado) return this.document.removerOficio(id);
+  }
+
+  static #onMostrarHabilidade(event, target) {
+    return this.document.system.raca?.mostrarHabilidade(target.closest("[data-habilidade-id]").dataset.habilidadeId);
+  }
+
   static #onUsarItem(event, target) {
     return this._getItem(target)?.usar();
   }
@@ -109,6 +168,12 @@ export class PersonagemSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   static #onEquipar(event, target) {
     const item = this._getItem(target);
     return item?.update({ "system.equipada": !item.system.equipada });
+  }
+
+  static #onAlterarQuantidade(event, target) {
+    const item = this._getItem(target);
+    const delta = Number(target.dataset.delta);
+    return item?.update({ "system.quantidade": Math.max(0, item.system.quantidade + delta) });
   }
 
   static #onCriarItem(event, target) {

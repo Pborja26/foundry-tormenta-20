@@ -285,14 +285,56 @@
   color: var(--t20s-red-dark);
 }
 
-.application.t20s .t20s-atributo input {
-  width: 60px;
-  height: 36px;
+.t20s .t20s-atributo-total {
   font-family: var(--t20s-heading);
-  font-size: 1.8rem;
+  font-size: 1.9rem;
+  line-height: 1.1;
+}
+
+.t20s .t20s-atributo-base {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.application.t20s .t20s-atributo-base input {
+  width: 36px;
+  height: 18px;
+  font-size: 0.75rem;
   text-align: center;
-  background: transparent;
-  border: none;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--t20s-parchment-dark);
+}
+
+.t20s .t20s-racial {
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: var(--t20s-red-dark);
+}
+
+/* Raça no cabeçalho */
+.t20s .t20s-raca-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--t20s-gold);
+  border-radius: 4px;
+}
+
+.t20s .t20s-raca-chip.vazio {
+  font-weight: normal;
+  font-style: italic;
+  opacity: 0.6;
+  border-style: dashed;
+}
+
+.t20s .t20s-raca-chip.pendente,
+.t20s .t20s-raca-escolha.pendente {
+  border-color: var(--t20s-red);
+  color: var(--t20s-red);
 }
 
 /* ---------- Perícias e listas ---------- */
@@ -339,6 +381,34 @@
   width: 36px;
   height: 18px;
   text-align: center;
+}
+
+.t20s .t20s-oficios-cabecalho th {
+  text-align: left;
+}
+
+.t20s .t20s-oficios-cabecalho a {
+  color: var(--t20s-parchment);
+}
+
+.t20s .t20s-oficio-nome {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.application.t20s .t20s-oficio-nome input {
+  flex: 1;
+  min-width: 0;
+  height: 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--t20s-ink);
+}
+
+.application.t20s .t20s-oficios select {
+  height: 20px;
+  padding: 0;
 }
 
 .t20s .t20s-abr,
@@ -513,4 +583,157 @@
 
 .t20s-chat .t20s-chat-detalhes dd {
   margin: 0;
+}
+
+/* ---------- Ficha de raça ---------- */
+
+.t20s .t20s-raca section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.t20s .t20s-raca-titulo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.t20s .t20s-raca-resumo {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.t20s .t20s-raca-atributos {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+}
+
+.t20s .t20s-raca-atributos label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+}
+
+.application.t20s .t20s-raca-atributos input {
+  width: 48px;
+  text-align: center;
+}
+
+.t20s .t20s-raca-escolha {
+  padding: 6px;
+  border: 1px solid var(--t20s-gold);
+  border-radius: 4px;
+}
+
+.t20s .t20s-rotulo {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.t20s .t20s-multi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+
+.t20s .t20s-dica {
+  margin: 0;
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+
+.t20s .t20s-habilidade {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--t20s-parchment-dark);
+}
+
+.t20s .t20s-habilidade-topo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.application.t20s .t20s-habilidade-topo input {
+  flex: 1;
+  font-weight: bold;
+}
+
+.t20s .t20s-item-nome.desativado {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* ---------- Equipamento ---------- */
+
+.t20s .t20s-secao {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.t20s .t20s-add-mod {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.t20s .t20s-mod {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px;
+  margin-bottom: 4px;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--t20s-gold);
+  border-radius: 4px;
+}
+
+.t20s .t20s-mod.inativa,
+.t20s .t20s-mod.substituida {
+  opacity: 0.55;
+}
+
+.t20s .t20s-mod-topo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.application.t20s .t20s-mod-nome {
+  flex: 1;
+  font-weight: bold;
+}
+
+.t20s .t20s-mod-campos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px 8px;
+}
+
+.t20s .t20s-mod-campos label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.72rem;
+}
+
+.application.t20s .t20s-mod-campos input,
+.application.t20s .t20s-mod-campos select {
+  height: 22px;
+}
+
+.t20s .t20s-quantidade {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: bold;
+}
+
+.t20s .t20s-item.esgotado {
+  opacity: 0.5;
 }

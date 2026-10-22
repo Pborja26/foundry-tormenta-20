@@ -3,7 +3,12 @@
     {{#each atributos as |atr|}}
     <li class="t20s-atributo">
       <a class="t20s-atributo-nome" data-action="rolarAtributo" data-atributo="{{atr.key}}">{{atr.abr}}</a>
-      <input type="number" name="system.atributos.{{atr.key}}.valor" value="{{atr.valor}}" />
+      <a class="t20s-atributo-total" data-action="rolarAtributo" data-atributo="{{atr.key}}"
+        data-tooltip="Base {{atr.valor}}{{#if atr.racial}} + Raça {{atr.racial}}{{/if}}">{{numberFormat atr.total sign=true}}</a>
+      <div class="t20s-atributo-base">
+        <input type="number" name="system.atributos.{{atr.key}}.valor" value="{{atr.valor}}" title="Valor base" />
+        {{#if atr.racial}}<span class="t20s-racial" title="Modificador racial">{{numberFormat atr.racial sign=true}}</span>{{/if}}
+      </div>
     </li>
     {{/each}}
   </ul>
@@ -24,11 +29,45 @@
           </td>
           <td class="t20s-abr">{{lookup @root.config.atributosAbr p.atributo}}</td>
           <td><input type="number" name="system.pericias.{{p.key}}.outros" value="{{p.outros}}" /></td>
-          <td class="t20s-total">{{numberFormat p.total sign=true}}</td>
+          <td class="t20s-total" data-tooltip="{{p.detalhe}}">{{numberFormat p.total sign=true}}</td>
         </tr>
         {{/each}}
       </tbody>
+      <tbody class="t20s-oficios">
+        <tr class="t20s-oficios-cabecalho">
+          <th colspan="4">Ofícios*</th>
+          <th>
+            {{#if editable}}
+            <a data-action="adicionarOficio" title="Adicionar ofício"><i class="fa-solid fa-plus"></i></a>
+            {{/if}}
+          </th>
+        </tr>
+        {{#each oficios as |o|}}
+        <tr class="{{#if o.treinada}}treinada{{else}}bloqueada{{/if}}" data-oficio-id="{{o.id}}">
+          <td><input type="checkbox" name="system.oficios.{{o.id}}.treinada" {{checked o.treinada}} /></td>
+          <td class="t20s-oficio-nome">
+            <a data-action="rolarOficio" title="Rolar"><i class="fa-solid fa-dice-d20"></i></a>
+            <input type="text" name="system.oficios.{{o.id}}.nome" value="{{o.nome}}" list="t20s-sugestoes-oficio" />
+            {{#if @root.editable}}
+            <a data-action="removerOficio" title="Remover"><i class="fa-solid fa-trash"></i></a>
+            {{/if}}
+          </td>
+          <td>
+            <select name="system.oficios.{{o.id}}.atributo">
+              {{selectOptions @root.config.atributosAbr selected=o.atributo}}
+            </select>
+          </td>
+          <td><input type="number" name="system.oficios.{{o.id}}.outros" value="{{o.outros}}" /></td>
+          <td class="t20s-total" data-tooltip="{{o.detalhe}}">{{numberFormat o.total sign=true}}</td>
+        </tr>
+        {{else}}
+        <tr><td colspan="5" class="t20s-vazio">Nenhum ofício. Use + para adicionar.</td></tr>
+        {{/each}}
+      </tbody>
     </table>
+    <datalist id="t20s-sugestoes-oficio">
+      {{#each config.sugestoesOficio as |nome|}}<option value="{{nome}}"></option>{{/each}}
+    </datalist>
 
     <div class="t20s-coluna">
       <h3>Ataques</h3>
@@ -37,16 +76,35 @@
         <li class="t20s-item" data-item-id="{{arma.id}}">
           <img src="{{arma.img}}" alt="" data-action="usarItem" />
           <a class="t20s-item-nome" data-action="usarItem">{{arma.name}}</a>
-          <span class="t20s-item-info">{{arma.system.dano}} · {{arma.system.critico}}</span>
+          <span class="t20s-item-info" data-tooltip="{{arma.ataqueDetalhe}}{{#if arma.mods}} · {{arma.mods}}{{/if}}">
+            {{numberFormat arma.ataque sign=true}} · {{arma.dano}} · {{arma.critico}}
+          </span>
         </li>
         {{else}}
         <li class="t20s-vazio">Adicione armas no inventário.</li>
         {{/each}}
       </ul>
 
+      {{#if raca}}
+      <h3>Habilidades de {{raca.name}}</h3>
+      <ul class="t20s-lista">
+        {{#each habilidadesRaca as |h|}}
+        <li class="t20s-item" data-habilidade-id="{{h.id}}">
+          <a class="t20s-item-nome" data-action="mostrarHabilidade" data-tooltip="{{h.descricao}}">{{h.nome}}</a>
+        </li>
+        {{else}}
+        <li class="t20s-vazio">Nenhuma habilidade cadastrada.</li>
+        {{/each}}
+      </ul>
+      {{/if}}
+
+      <h3>Tamanho</h3>
+      <select name="system.tamanho">{{selectOptions config.tamanhos selected=system.tamanho}}</select>
+
       <h3>Deslocamento</h3>
-      <label class="t20s-campo">
+      <label class="t20s-campo" data-tooltip="Base; armadura pesada reduz 3m">
         <input type="number" name="system.deslocamento" value="{{system.deslocamento}}" /> m
+        {{#if (ne system.deslocamentoTotal system.deslocamento)}}→ <strong>{{system.deslocamentoTotal}}m</strong>{{/if}}
       </label>
     </div>
   </div>

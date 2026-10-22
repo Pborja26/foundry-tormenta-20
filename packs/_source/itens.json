@@ -1,0 +1,1646 @@
+[
+  {
+    "name": "Água benta",
+    "categoria": "alquimico",
+    "preco": "T$ 10",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Curto",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "dano",
+      "formula": "2d10",
+      "tipoDano": "luz",
+      "resistencia": "Reflexos reduz à metade",
+      "atributoCd": "sab",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 155
+  },
+  {
+    "name": "Óleo",
+    "categoria": "geral",
+    "preco": "T$ 0,1",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Curto",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 155
+  },
+  {
+    "name": "Ácido",
+    "categoria": "alquimico",
+    "preco": "T$ 10",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Curto",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "dano",
+      "formula": "2d4",
+      "tipoDano": "acido",
+      "resistencia": "Reflexos reduz à metade",
+      "atributoCd": "des",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 160
+  },
+  {
+    "name": "Bálsamo restaurador",
+    "categoria": "alquimico",
+    "preco": "T$ 10",
+    "espacos": 0.5,
+    "execucao": "Completa",
+    "alcance": "Pessoal",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "cura",
+      "formula": "2d4",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 160
+  },
+  {
+    "name": "Bomba",
+    "categoria": "alquimico",
+    "preco": "T$ 50",
+    "espacos": 0.5,
+    "execucao": "Movimento + padrão",
+    "alcance": "Curto (raio 3m)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "dano",
+      "formula": "6d6",
+      "tipoDano": "impacto",
+      "resistencia": "Reflexos reduz à metade",
+      "atributoCd": "des",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 160
+  },
+  {
+    "name": "Cosmético",
+    "categoria": "alquimico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Completa",
+    "alcance": "Pessoal",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [
+      {
+        "name": "Cosmético (+2 em perícias de Carisma)",
+        "changes": [
+          {
+            "key": "system.pericias.adestramento.outros",
+            "mode": 2,
+            "value": "2"
+          },
+          {
+            "key": "system.pericias.atuacao.outros",
+            "mode": 2,
+            "value": "2"
+          },
+          {
+            "key": "system.pericias.diplomacia.outros",
+            "mode": 2,
+            "value": "2"
+          },
+          {
+            "key": "system.pericias.enganacao.outros",
+            "mode": 2,
+            "value": "2"
+          },
+          {
+            "key": "system.pericias.intimidacao.outros",
+            "mode": 2,
+            "value": "2"
+          },
+          {
+            "key": "system.pericias.jogatina.outros",
+            "mode": 2,
+            "value": "2"
+          }
+        ]
+      }
+    ],
+    "pagina": 160
+  },
+  {
+    "name": "Elixir do amor",
+    "categoria": "alquimico",
+    "preco": "T$ 100",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "Vontade anula",
+      "atributoCd": "car",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 160
+  },
+  {
+    "name": "Essência de mana",
+    "categoria": "alquimico",
+    "preco": "T$ 50",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "mana",
+      "formula": "1d4",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 160
+  },
+  {
+    "name": "Fogo alquímico",
+    "categoria": "alquimico",
+    "preco": "T$ 10",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Curto",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "dano",
+      "formula": "1d6",
+      "tipoDano": "fogo",
+      "resistencia": "Reflexos reduz à metade e evita as chamas",
+      "atributoCd": "des",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 160
+  },
+  {
+    "name": "Pó do desaparecimento",
+    "categoria": "alquimico",
+    "preco": "T$ 100",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 160
+  },
+  {
+    "name": "Beladona",
+    "categoria": "veneno",
+    "preco": "T$ 1.500",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "Fortitude (CD +5)",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 161
+  },
+  {
+    "name": "Bruma sonolenta",
+    "categoria": "veneno",
+    "preco": "T$ 150",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Curto",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "Fortitude",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 161
+  },
+  {
+    "name": "Cicuta",
+    "categoria": "veneno",
+    "preco": "T$ 60",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "perdaPv",
+      "formula": "1d12",
+      "tipoDano": "",
+      "resistencia": "Fortitude: perde 1d12 PV uma vez",
+      "atributoCd": "",
+      "rodadas": 3
+    },
+    "efeitos": [],
+    "pagina": 161
+  },
+  {
+    "name": "Essência de sombra",
+    "categoria": "veneno",
+    "preco": "T$ 100",
+    "espacos": 0.5,
+    "execucao": "Movimento",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "Fortitude",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 161
+  },
+  {
+    "name": "Névoa tóxica",
+    "categoria": "veneno",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Curto",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "perdaPv",
+      "formula": "1d12",
+      "tipoDano": "",
+      "resistencia": "Fortitude: perde 1d12 PV uma vez",
+      "atributoCd": "",
+      "rodadas": 3
+    },
+    "efeitos": [],
+    "pagina": 161
+  },
+  {
+    "name": "Peçonha comum",
+    "categoria": "veneno",
+    "preco": "T$ 15",
+    "espacos": 0.5,
+    "execucao": "Movimento",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "perdaPv",
+      "formula": "1d12",
+      "tipoDano": "",
+      "resistencia": "Fortitude anula",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 161
+  },
+  {
+    "name": "Peçonha concentrada",
+    "categoria": "veneno",
+    "preco": "T$ 90",
+    "espacos": 0.5,
+    "execucao": "Movimento",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "perdaPv",
+      "formula": "1d12",
+      "tipoDano": "",
+      "resistencia": "Fortitude: perde 1d12 PV uma vez",
+      "atributoCd": "",
+      "rodadas": 3
+    },
+    "efeitos": [],
+    "pagina": 162
+  },
+  {
+    "name": "Peçonha potente",
+    "categoria": "veneno",
+    "preco": "T$ 600",
+    "espacos": 0.5,
+    "execucao": "Movimento",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "perdaPv",
+      "formula": "2d12",
+      "tipoDano": "",
+      "resistencia": "Fortitude: perde 2d12 PV uma vez",
+      "atributoCd": "",
+      "rodadas": 3
+    },
+    "efeitos": [],
+    "pagina": 162
+  },
+  {
+    "name": "Pó de lich",
+    "categoria": "veneno",
+    "preco": "T$ 3.000",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "perdaPv",
+      "formula": "4d12",
+      "tipoDano": "",
+      "resistencia": "Fortitude (CD +5): perde 4d12 PV uma vez",
+      "atributoCd": "",
+      "rodadas": 5
+    },
+    "efeitos": [],
+    "pagina": 162
+  },
+  {
+    "name": "Riso de Nimb",
+    "categoria": "veneno",
+    "preco": "T$ 150",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Curto",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "Fortitude",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 162
+  },
+  {
+    "name": "Batata valkariana",
+    "categoria": "alimento",
+    "preco": "T$ 2",
+    "espacos": 0.5,
+    "execucao": "Completa",
+    "alcance": "Pessoal",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 162
+  },
+  {
+    "name": "Gorad quente",
+    "categoria": "alimento",
+    "preco": "T$ 18",
+    "espacos": 0.5,
+    "execucao": "Completa",
+    "alcance": "Pessoal",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "pmTemp",
+      "formula": "2",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 162
+  },
+  {
+    "name": "Macarrão de Yuvalin",
+    "categoria": "alimento",
+    "preco": "T$ 6",
+    "espacos": 0.5,
+    "execucao": "Completa",
+    "alcance": "Pessoal",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "pvTemp",
+      "formula": "5",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 162
+  },
+  {
+    "name": "Prato do aventureiro",
+    "categoria": "alimento",
+    "preco": "T$ 1",
+    "espacos": 0.5,
+    "execucao": "Completa",
+    "alcance": "Pessoal",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 162
+  },
+  {
+    "name": "Ração de viagem",
+    "categoria": "alimento",
+    "preco": "T$ 0,5",
+    "espacos": 0.5,
+    "execucao": "Completa",
+    "alcance": "Pessoal",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 162
+  },
+  {
+    "name": "Refeição comum",
+    "categoria": "alimento",
+    "preco": "T$ 0,3",
+    "espacos": 0.5,
+    "execucao": "Completa",
+    "alcance": "Pessoal",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 162
+  },
+  {
+    "name": "Sopa de peixe",
+    "categoria": "alimento",
+    "preco": "T$ 1",
+    "espacos": 0.5,
+    "execucao": "Completa",
+    "alcance": "Pessoal",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 162
+  },
+  {
+    "name": "Virotes (20)",
+    "categoria": "municao",
+    "preco": "T$ 2",
+    "espacos": 1.0,
+    "execucao": "",
+    "alcance": "",
+    "quantidade": 20,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 145
+  },
+  {
+    "name": "Pedras (20)",
+    "categoria": "municao",
+    "preco": "T$ 0,5",
+    "espacos": 1.0,
+    "execucao": "",
+    "alcance": "",
+    "quantidade": 20,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 144
+  },
+  {
+    "name": "Flechas (20)",
+    "categoria": "municao",
+    "preco": "T$ 1",
+    "espacos": 1.0,
+    "execucao": "",
+    "alcance": "",
+    "quantidade": 20,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 145
+  },
+  {
+    "name": "Balas (20)",
+    "categoria": "municao",
+    "preco": "T$ 20",
+    "espacos": 1.0,
+    "execucao": "",
+    "alcance": "",
+    "quantidade": 20,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 145
+  },
+  {
+    "name": "Óleo de Abençoar Alimentos",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Abençoar Alimentos",
+      "pagina": 178,
+      "circulo": 1,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Granada de Área Escorregadia",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Curto",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Área Escorregadia",
+      "pagina": 180,
+      "circulo": 1,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Óleo de Arma Mágica",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Arma Mágica",
+      "pagina": 181,
+      "circulo": 1,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Poção de Compreensão",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Compreensão",
+      "pagina": 184,
+      "circulo": 1,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Poção de Curar Ferimentos (2d8+2 PV)",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "cura",
+      "formula": "2d8+2",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Curar Ferimentos",
+      "pagina": 189,
+      "circulo": 1,
+      "duracao": "Instantânea"
+    }
+  },
+  {
+    "name": "Poção de Disfarce Ilusório",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Disfarce Ilusório",
+      "pagina": 191,
+      "circulo": 1,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Óleo de Escuridão",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Escuridão",
+      "pagina": 193,
+      "circulo": 1,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Óleo de Luz",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Luz",
+      "pagina": 197,
+      "circulo": 1,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Granada de Névoa",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Curto",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Névoa",
+      "pagina": 200,
+      "circulo": 1,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Poção de Primor Atlético",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [
+      {
+        "name": "Primor Atlético",
+        "changes": [
+          {
+            "key": "system.deslocamento",
+            "mode": 2,
+            "value": "9"
+          },
+          {
+            "key": "system.pericias.atletismo.outros",
+            "mode": 2,
+            "value": "10"
+          }
+        ]
+      }
+    ],
+    "pagina": 341,
+    "magia": {
+      "nome": "Primor Atlético",
+      "pagina": 201,
+      "circulo": 1,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Poção de Proteção Divina",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [
+      {
+        "name": "Proteção Divina",
+        "changes": [
+          {
+            "key": "system.pericias.fortitude.outros",
+            "mode": 2,
+            "value": "2"
+          },
+          {
+            "key": "system.pericias.reflexos.outros",
+            "mode": 2,
+            "value": "2"
+          },
+          {
+            "key": "system.pericias.vontade.outros",
+            "mode": 2,
+            "value": "2"
+          }
+        ]
+      }
+    ],
+    "pagina": 341,
+    "magia": {
+      "nome": "Proteção Divina",
+      "pagina": 202,
+      "circulo": 1,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Poção de Resistência a Energia",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Resistência a Energia",
+      "pagina": 204,
+      "circulo": 1,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Granada de Sono",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Curto",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "Vontade parcial",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Sono",
+      "pagina": 207,
+      "circulo": 1,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Poção de Suporte Ambiental",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Suporte Ambiental",
+      "pagina": 207,
+      "circulo": 1,
+      "duracao": "1 dia"
+    }
+  },
+  {
+    "name": "Óleo de Tranca Arcana",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Tranca Arcana",
+      "pagina": 209,
+      "circulo": 1,
+      "duracao": "Permanente"
+    }
+  },
+  {
+    "name": "Poção de Visão Mística",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Visão Mística",
+      "pagina": 211,
+      "circulo": 1,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Poção de Vitalidade Fantasma",
+    "categoria": "magico",
+    "preco": "T$ 30",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "pvTemp",
+      "formula": "2d10",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Vitalidade Fantasma",
+      "pagina": 211,
+      "circulo": 1,
+      "duracao": "Instantânea"
+    }
+  },
+  {
+    "name": "Poção de Escudo da Fé (duração cena)",
+    "categoria": "magico",
+    "preco": "T$ 120",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [
+      {
+        "name": "Escudo da Fé",
+        "changes": [
+          {
+            "key": "system.defesa.outros",
+            "mode": 2,
+            "value": "2"
+          }
+        ]
+      }
+    ],
+    "pagina": 341,
+    "magia": {
+      "nome": "Escudo da Fé",
+      "pagina": 192,
+      "circulo": 1,
+      "duracao": "1 turno"
+    }
+  },
+  {
+    "name": "Óleo de Alterar Tamanho",
+    "categoria": "magico",
+    "preco": "T$ 270",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Alterar Tamanho",
+      "pagina": 179,
+      "circulo": 2,
+      "duracao": "1 dia"
+    }
+  },
+  {
+    "name": "Poção de Aparência Perfeita",
+    "categoria": "magico",
+    "preco": "T$ 270",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Aparência Perfeita",
+      "pagina": 180,
+      "circulo": 2,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Óleo de Armamento da Natureza",
+    "categoria": "magico",
+    "preco": "T$ 270",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Armamento da Natureza",
+      "pagina": 181,
+      "circulo": 1,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Granada de Bola de Fogo",
+    "categoria": "magico",
+    "preco": "T$ 270",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Curto",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "dano",
+      "formula": "6d6",
+      "tipoDano": "fogo",
+      "resistencia": "Reflexos reduz à metade",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Bola de Fogo",
+      "pagina": 182,
+      "circulo": 2,
+      "duracao": "Instantânea"
+    }
+  },
+  {
+    "name": "Poção de Camuflagem Ilusória",
+    "categoria": "magico",
+    "preco": "T$ 270",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Camuflagem Ilusória",
+      "pagina": 183,
+      "circulo": 2,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Poção de Concentração de Combate (duração cena)",
+    "categoria": "magico",
+    "preco": "T$ 270",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Concentração de Combate",
+      "pagina": 185,
+      "circulo": 1,
+      "duracao": "1 rodada"
+    }
+  },
+  {
+    "name": "Poção de Curar Ferimentos (4d8+4 PV)",
+    "categoria": "magico",
+    "preco": "T$ 270",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "cura",
+      "formula": "4d8+4",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Curar Ferimentos",
+      "pagina": 189,
+      "circulo": 1,
+      "duracao": "Instantânea"
+    }
+  },
+  {
+    "name": "Poção de Físico Divino",
+    "categoria": "magico",
+    "preco": "T$ 270",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Físico Divino",
+      "pagina": 193,
+      "circulo": 2,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Poção de Mente Divina",
+    "categoria": "magico",
+    "preco": "T$ 270",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Mente Divina",
+      "pagina": 198,
+      "circulo": 2,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Poção de Metamorfose",
+    "categoria": "magico",
+    "preco": "T$ 270",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Metamorfose",
+      "pagina": 198,
+      "circulo": 2,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Poção de Purificação",
+    "categoria": "magico",
+    "preco": "T$ 270",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Purificação",
+      "pagina": 202,
+      "circulo": 2,
+      "duracao": "Instantânea"
+    }
+  },
+  {
+    "name": "Poção de Velocidade",
+    "categoria": "magico",
+    "preco": "T$ 270",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Velocidade",
+      "pagina": 210,
+      "circulo": 2,
+      "duracao": "Sustentada"
+    }
+  },
+  {
+    "name": "Óleo de Vestimenta da Fé",
+    "categoria": "magico",
+    "preco": "T$ 270",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Vestimenta da Fé",
+      "pagina": 210,
+      "circulo": 2,
+      "duracao": "1 dia"
+    }
+  },
+  {
+    "name": "Poção de Voz Divina",
+    "categoria": "magico",
+    "preco": "T$ 270",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Voz Divina",
+      "pagina": 211,
+      "circulo": 2,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Óleo de Arma Mágica (bônus +3)",
+    "categoria": "magico",
+    "preco": "T$ 750",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Toque",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Arma Mágica",
+      "pagina": 181,
+      "circulo": 1,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Poção de Curar Ferimentos (7d8+7 PV)",
+    "categoria": "magico",
+    "preco": "T$ 1.080",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "cura",
+      "formula": "7d8+7",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Curar Ferimentos",
+      "pagina": 189,
+      "circulo": 1,
+      "duracao": "Instantânea"
+    }
+  },
+  {
+    "name": "Poção de Físico Divino (três atributos)",
+    "categoria": "magico",
+    "preco": "T$ 1.080",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [
+      {
+        "name": "Físico Divino (três atributos)",
+        "changes": [
+          {
+            "key": "system.atributos.for.valor",
+            "mode": 2,
+            "value": "2"
+          },
+          {
+            "key": "system.atributos.des.valor",
+            "mode": 2,
+            "value": "2"
+          },
+          {
+            "key": "system.atributos.con.valor",
+            "mode": 2,
+            "value": "2"
+          }
+        ]
+      }
+    ],
+    "pagina": 341,
+    "magia": {
+      "nome": "Físico Divino",
+      "pagina": 193,
+      "circulo": 2,
+      "duracao": "Cena"
+    }
+  },
+  {
+    "name": "Poção de Invisibilidade (duração cena)",
+    "categoria": "magico",
+    "preco": "T$ 1.080",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "nenhum",
+      "formula": "",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Invisibilidade",
+      "pagina": 195,
+      "circulo": 2,
+      "duracao": "1 rodada"
+    }
+  },
+  {
+    "name": "Granada de Bola de Fogo (10d6 de dano)",
+    "categoria": "magico",
+    "preco": "T$ 1.470",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Curto",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "dano",
+      "formula": "10d6",
+      "tipoDano": "fogo",
+      "resistencia": "Reflexos reduz à metade",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Bola de Fogo",
+      "pagina": 182,
+      "circulo": 2,
+      "duracao": "Instantânea"
+    }
+  },
+  {
+    "name": "Poção de Curar Ferimentos (11d8+11 PV)",
+    "categoria": "magico",
+    "preco": "T$ 3.000",
+    "espacos": 0.5,
+    "execucao": "Padrão",
+    "alcance": "Pessoal (quem bebe)",
+    "quantidade": 1,
+    "efeito": {
+      "tipo": "cura",
+      "formula": "11d8+11",
+      "tipoDano": "",
+      "resistencia": "",
+      "atributoCd": "",
+      "rodadas": 0
+    },
+    "efeitos": [],
+    "pagina": 341,
+    "magia": {
+      "nome": "Curar Ferimentos",
+      "pagina": 189,
+      "circulo": 1,
+      "duracao": "Instantânea"
+    }
+  }
+]

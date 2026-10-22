@@ -8,7 +8,10 @@
     <li class="t20s-item" data-item-id="{{item.id}}">
       <img src="{{item.img}}" alt="" data-action="usarItem" />
       <a class="t20s-item-nome" data-action="usarItem">{{item.name}}</a>
-      <span class="t20s-item-info">{{item.system.dano}} {{lookup @root.config.tiposDano item.system.tipoDano}} · {{item.system.critico}}</span>
+      <span class="t20s-item-info" data-tooltip="{{item.ataqueDetalhe}}">
+        {{numberFormat item.ataque sign=true}} · {{item.dano}} {{lookup @root.config.tiposDano item.system.tipoDano}} · {{item.critico}}
+        {{#if item.mods}}<em>({{item.mods}})</em>{{/if}}
+      </span>
       <div class="t20s-item-controles">
         <a data-action="equipar" title="Equipar" class="{{#if item.system.equipada}}ativo{{/if}}"><i class="fa-solid fa-hand-fist"></i></a>
         <a data-action="editarItem" title="Editar"><i class="fa-solid fa-pen"></i></a>
@@ -27,13 +30,43 @@
     <li class="t20s-item" data-item-id="{{item.id}}">
       <img src="{{item.img}}" alt="" />
       <a class="t20s-item-nome" data-action="editarItem">{{item.name}}</a>
-      <span class="t20s-item-info">Defesa +{{item.system.defesa}} · Penalidade -{{item.system.penalidade}}</span>
+      <span class="t20s-item-info">
+        {{lookup @root.config.tiposArmadura item.system.tipo}} · Defesa +{{item.efetiva.defesa}} · Penalidade −{{item.efetiva.penalidade}}
+        {{#if item.mods}}<em>({{item.mods}} modificação(ões))</em>{{/if}}
+      </span>
       <div class="t20s-item-controles">
         <a data-action="equipar" title="Equipar" class="{{#if item.system.equipada}}ativo{{/if}}"><i class="fa-solid fa-shield-halved"></i></a>
         <a data-action="editarItem" title="Editar"><i class="fa-solid fa-pen"></i></a>
         <a data-action="apagarItem" title="Apagar"><i class="fa-solid fa-trash"></i></a>
       </div>
     </li>
+    {{/each}}
+  </ul>
+
+  <div class="t20s-lista-cabecalho">
+    <h3>Itens utilizáveis</h3>
+    {{#if editable}}<a data-action="criarItem" data-type="consumivel" title="Adicionar"><i class="fa-solid fa-plus"></i></a>{{/if}}
+  </div>
+  <ul class="t20s-lista">
+    {{#each consumiveis as |item|}}
+    <li class="t20s-item {{#unless item.system.quantidade}}esgotado{{/unless}}" data-item-id="{{item.id}}">
+      <img src="{{item.img}}" alt="" data-action="usarItem" />
+      <a class="t20s-item-nome" data-action="usarItem" data-tooltip="Usar (marque alvos antes para aplicar neles)">{{item.name}}</a>
+      <span class="t20s-item-info">
+        {{lookup @root.config.categoriasConsumivel item.system.categoria}}{{#if item.system.efeito.formula}} · {{item.system.efeito.formula}}{{/if}}
+      </span>
+      <div class="t20s-quantidade">
+        <a data-action="alterarQuantidade" data-delta="-1" title="−1"><i class="fa-solid fa-minus"></i></a>
+        <span>{{item.system.quantidade}}</span>
+        <a data-action="alterarQuantidade" data-delta="1" title="+1"><i class="fa-solid fa-plus"></i></a>
+      </div>
+      <div class="t20s-item-controles">
+        <a data-action="editarItem" title="Editar"><i class="fa-solid fa-pen"></i></a>
+        <a data-action="apagarItem" title="Apagar"><i class="fa-solid fa-trash"></i></a>
+      </div>
+    </li>
+    {{else}}
+    <li class="t20s-vazio">Arraste itens do compêndio Itens ou use +.</li>
     {{/each}}
   </ul>
 </section>

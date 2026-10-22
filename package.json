@@ -6,6 +6,11 @@
   "type": "module",
   "scripts": {
     "link": "node scripts/link.mjs",
-    "check": "node scripts/check.mjs"
+    "check": "node scripts/check.mjs",
+    "test": "node --test test/",
+    "build:packs": "node scripts/build-packs.mjs"
+  },
+  "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "3.0.4"
   }
 }

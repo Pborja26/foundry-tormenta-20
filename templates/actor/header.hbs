@@ -10,7 +10,15 @@
       </label>
     </div>
     <div class="t20s-detalhes">
-      <input type="text" name="system.detalhes.raca" value="{{system.detalhes.raca}}" placeholder="Raça" />
+      {{#if raca}}
+      <div class="t20s-raca-chip {{#if raca.system.escolhasPendentes}}pendente{{/if}}" data-item-id="{{raca.id}}"
+        data-tooltip="{{raca.system.resumo}}{{#if raca.system.escolhasPendentes}} — escolha {{raca.system.escolhasPendentes}} atributo(s){{/if}}">
+        <a data-action="editarItem">{{raca.name}}</a>
+        {{#if raca.system.escolhasPendentes}}<i class="fa-solid fa-circle-exclamation"></i>{{/if}}
+      </div>
+      {{else}}
+      <div class="t20s-raca-chip vazio" data-tooltip="Arraste uma raça do compêndio Raças para a ficha">Sem raça</div>
+      {{/if}}
       <input type="text" name="system.detalhes.classe" value="{{system.detalhes.classe}}" placeholder="Classe" />
       <input type="text" name="system.detalhes.origem" value="{{system.detalhes.origem}}" placeholder="Origem" />
       <input type="text" name="system.detalhes.divindade" value="{{system.detalhes.divindade}}" placeholder="Divindade" />
@@ -42,7 +50,7 @@
     </div>
   </div>
 
-  <div class="t20s-defesa" data-tooltip="10 + atributo + armadura ({{system.defesa.armadura}}) + outros">
+  <div class="t20s-defesa" data-tooltip="{{system.defesa.detalhe}}{{#if system.defesa.pesada}} (armadura pesada: sem atributo){{/if}}">
     <span class="t20s-defesa-rotulo">Defesa</span>
     <span class="t20s-defesa-valor">{{system.defesa.total}}</span>
     <div class="t20s-defesa-edit">
