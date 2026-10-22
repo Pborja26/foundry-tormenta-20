@@ -10,14 +10,60 @@ import {
   calcularPericia,
   descreverPartes,
   meioNivel,
+  modificadorAtributo,
   modificacoesAtivas,
   montarFormulaDano,
-  multiplicarDados
+  multiplicarDados,
+  valorAtributoDeModificador
 } from "../module/regras.mjs";
 
 const atributos = { for: 4, des: 3, con: 2, int: 0, sab: 1, car: -1 };
 const pericia = (key, extra = {}) =>
   calcularPericia({ key, nivel: 5, atributos, treinada: false, ...extra }).total;
+
+describe("modificador de atributo", () => {
+  it("converte os limites da tabela", () => {
+    const faixas = [
+      [1, -5],
+      [2, -4],
+      [3, -4],
+      [4, -3],
+      [5, -3],
+      [6, -2],
+      [7, -2],
+      [8, -1],
+      [9, -1],
+      [10, 0],
+      [11, 0],
+      [12, 1],
+      [13, 1],
+      [14, 2],
+      [15, 2],
+      [16, 3],
+      [17, 3],
+      [18, 4],
+      [19, 4],
+      [20, 5],
+      [21, 5],
+      [22, 6],
+      [23, 6],
+      [24, 7],
+      [25, 7]
+    ];
+    for (const [valor, esperado] of faixas) assert.equal(modificadorAtributo(valor), esperado);
+  });
+
+  it("aplica bônus e penalidade racial à pontuação antes de calcular", () => {
+    assert.equal(modificadorAtributo(10 + 2), 1);
+    assert.equal(modificadorAtributo(10 - 2), -1);
+  });
+
+  it("converte modificadores antigos para uma pontuação equivalente", () => {
+    for (const modificador of [-5, -4, -1, 0, 1, 4, 7]) {
+      assert.equal(modificadorAtributo(valorAtributoDeModificador(modificador)), modificador);
+    }
+  });
+});
 
 describe("½ nível", () => {
   it("arredonda para baixo", () => {
@@ -74,7 +120,13 @@ describe("perícias", () => {
   });
 
   it("descreve as partes para o tooltip", () => {
-    const { total, partes } = calcularPericia({ key: "furtividade", nivel: 5, atributos, treinada: true, penalidadeArmadura: 1 });
+    const { total, partes } = calcularPericia({
+      key: "furtividade",
+      nivel: 5,
+      atributos,
+      treinada: true,
+      penalidadeArmadura: 1
+    });
     assert.equal(descreverPartes(partes, total), "½ nível 2 + DES 3 + Treino 2 − Armadura 1 = 6");
   });
 });
@@ -110,7 +162,10 @@ describe("bônus racial", () => {
   });
 
   it("ignora escolhas além da quantidade", () => {
-    const r = calcularBonusRacial({ escolhas: { quantidade: 3, valor: 1 }, escolhidos: ["for", "des", "con", "int"] });
+    const r = calcularBonusRacial({
+      escolhas: { quantidade: 3, valor: 1 },
+      escolhidos: ["for", "des", "con", "int"]
+    });
     assert.deepEqual(r.validos, ["for", "des", "con"]);
     assert.equal(r.bonus.int, 0);
   });
@@ -133,7 +188,10 @@ describe("bônus racial", () => {
     const { bonus } = calcularBonusRacial({ atributos: { int: 2, des: 1, con: -1 } }); // Elfo
     const total = { ...atributos };
     for (const k of Object.keys(total)) total[k] += bonus[k];
-    assert.equal(calcularPericia({ key: "misticismo", nivel: 1, atributos: total, treinada: true }).total, 0 + 2 + 2);
+    assert.equal(
+      calcularPericia({ key: "misticismo", nivel: 1, atributos: total, treinada: true }).total,
+      0 + 2 + 2
+    );
   });
 });
 
@@ -183,17 +241,30 @@ describe("deslocamento", () => {
 describe("armas", () => {
   const luta = { total: 6, atributo: "for", label: "Luta" }; // ½ nível 2 + FOR 4
   const pontaria = { total: 5, atributo: "des", label: "Pontaria" }; // ½ nível 2 + DES 3
-  const espada = { pericia: "luta", bonusAtaque: 0, margem: 19, multiplicador: 2, dano: "1d8", modificacoes: [] };
+  const espada = {
+    pericia: "luta",
+    bonusAtaque: 0,
+    margem: 19,
+    multiplicador: 2,
+    dano: "1d8",
+    modificacoes: []
+  };
 
   it("ataque = perícia + bônus da arma", () => {
-    assert.equal(calcularArma({ arma: { ...espada, bonusAtaque: 1 }, pericia: luta, atributos }).ataque.total, 7);
+    assert.equal(
+      calcularArma({ arma: { ...espada, bonusAtaque: 1 }, pericia: luta, atributos }).ataque.total,
+      7
+    );
   });
 
   it("Luta soma Força no dano; disparo não soma; arremesso soma Força", () => {
     assert.equal(calcularArma({ arma: espada, pericia: luta, atributos }).bonusDano, 4);
     const arco = { ...espada, pericia: "pontaria", margem: 20, multiplicador: 3 };
     assert.equal(calcularArma({ arma: arco, pericia: pontaria, atributos }).bonusDano, 0);
-    assert.equal(calcularArma({ arma: { ...arco, arremesso: true }, pericia: pontaria, atributos }).bonusDano, 4);
+    assert.equal(
+      calcularArma({ arma: { ...arco, arremesso: true }, pericia: pontaria, atributos }).bonusDano,
+      4
+    );
   });
 
   it("trocar o atributo do ataque (Acuidade com Arma) muda ataque e dano em Luta", () => {
@@ -203,11 +274,17 @@ describe("armas", () => {
   });
 
   it("melhorias: Certeira +1 ataque, Cruel +1 dano; Pungente e Atroz substituem", () => {
-    const mods = [{ nome: "Certeira", ataque: 1 }, { nome: "Cruel", dano: 1 }];
+    const mods = [
+      { nome: "Certeira", ataque: 1 },
+      { nome: "Cruel", dano: 1 }
+    ];
     let r = calcularArma({ arma: { ...espada, modificacoes: mods }, pericia: luta, atributos });
     assert.equal(r.ataque.total, 7);
     assert.equal(r.bonusDano, 5);
-    mods.push({ nome: "Pungente", ataque: 2, substitui: "Certeira" }, { nome: "Atroz", dano: 2, substitui: "Cruel" });
+    mods.push(
+      { nome: "Pungente", ataque: 2, substitui: "Certeira" },
+      { nome: "Atroz", dano: 2, substitui: "Cruel" }
+    );
     r = calcularArma({ arma: { ...espada, modificacoes: mods }, pericia: luta, atributos });
     assert.equal(r.ataque.total, 8);
     assert.equal(r.bonusDano, 6);
@@ -215,13 +292,22 @@ describe("armas", () => {
 
   it("modificação inativa não conta", () => {
     const mods = [{ nome: "Sagrada", dadosExtras: "2d8", tipoExtra: "luz", ativa: false }];
-    assert.deepEqual(calcularArma({ arma: { ...espada, modificacoes: mods }, pericia: luta, atributos }).extras, []);
+    assert.deepEqual(
+      calcularArma({ arma: { ...espada, modificacoes: mods }, pericia: luta, atributos }).extras,
+      []
+    );
     assert.equal(modificacoesAtivas(mods).length, 0);
   });
 
   it("Precisa aumenta a margem; Maciça aumenta o multiplicador", () => {
     const r = calcularArma({
-      arma: { ...espada, modificacoes: [{ nome: "Precisa", margem: 1 }, { nome: "Maciça", multiplicador: 1 }] },
+      arma: {
+        ...espada,
+        modificacoes: [
+          { nome: "Precisa", margem: 1 },
+          { nome: "Maciça", multiplicador: 1 }
+        ]
+      },
       pericia: luta,
       atributos
     });
@@ -232,7 +318,10 @@ describe("armas", () => {
 
   it("Ameaçadora duplica a margem (19 → 17; x3 sem margem → 19)", () => {
     const amea = [{ nome: "Ameaçadora", margemDobrada: true }];
-    assert.equal(calcularArma({ arma: { ...espada, modificacoes: amea }, pericia: luta, atributos }).margem, 17);
+    assert.equal(
+      calcularArma({ arma: { ...espada, modificacoes: amea }, pericia: luta, atributos }).margem,
+      17
+    );
     const machado = { ...espada, margem: 20, multiplicador: 3, modificacoes: amea };
     assert.equal(calcularArma({ arma: machado, pericia: luta, atributos }).margem, 19);
   });
@@ -260,13 +349,22 @@ describe("fórmula de dano", () => {
   });
 
   it("crítico: multiplica os dados da arma, não os extras nem o bônus", () => {
-    const f = montarFormulaDano({ dano: "1d8", bonusDano: 4, extras: [{ formula: "1d6", tipo: "fogo" }], critico: true, multiplicador: 3 });
+    const f = montarFormulaDano({
+      dano: "1d8",
+      bonusDano: 4,
+      extras: [{ formula: "1d6", tipo: "fogo" }],
+      critico: true,
+      multiplicador: 3
+    });
     assert.equal(f, "3d8 + 1d6[fogo] + 4");
   });
 
   it("Dilacerante: +10 só no crítico", () => {
     assert.equal(montarFormulaDano({ dano: "1d8", bonusDano: 4, danoCritico: 10 }), "1d8 + 4");
-    assert.equal(montarFormulaDano({ dano: "1d8", bonusDano: 4, danoCritico: 10, critico: true }), "2d8 + 14");
+    assert.equal(
+      montarFormulaDano({ dano: "1d8", bonusDano: 4, danoCritico: 10, critico: true }),
+      "2d8 + 14"
+    );
   });
 
   it("bônus negativo", () => {
@@ -284,9 +382,15 @@ describe("armaduras com melhorias", () => {
   });
 
   it("Ajustada −1 e Sob Medida −2 (substitui), penalidade nunca negativa", () => {
-    const mods = [{ nome: "Ajustada", penalidade: -1 }, { nome: "Sob Medida", penalidade: -2, substitui: "Ajustada" }];
+    const mods = [
+      { nome: "Ajustada", penalidade: -1 },
+      { nome: "Sob Medida", penalidade: -2, substitui: "Ajustada" }
+    ];
     assert.equal(armaduraEfetiva({ ...cota, modificacoes: mods }).penalidade, 0);
-    assert.equal(armaduraEfetiva({ tipo: "leve", defesa: 2, penalidade: 0, modificacoes: mods }).penalidade, 0);
+    assert.equal(
+      armaduraEfetiva({ tipo: "leve", defesa: 2, penalidade: 0, modificacoes: mods }).penalidade,
+      0
+    );
   });
 
   it("Delicada: armadura pesada soma até 1 de DES", () => {
@@ -296,7 +400,10 @@ describe("armaduras com melhorias", () => {
   });
 
   it("encanto Defensor soma na Defesa", () => {
-    const r = calcularDefesa({ atributo: 3, equipadas: [{ tipo: "leve", defesa: 2, penalidade: 0, modificacoes: [{ nome: "Defensor", defesa: 2 }] }] });
+    const r = calcularDefesa({
+      atributo: 3,
+      equipadas: [{ tipo: "leve", defesa: 2, penalidade: 0, modificacoes: [{ nome: "Defensor", defesa: 2 }] }]
+    });
     assert.equal(r.total, 10 + 3 + 4);
   });
 });

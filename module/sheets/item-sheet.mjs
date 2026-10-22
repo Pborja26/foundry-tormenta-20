@@ -1,7 +1,7 @@
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ItemSheetV2 } = foundry.applications.sheets;
 
-const TEMPLATES = "systems/t20-sistema/templates/item";
+const TEMPLATES = "systems/foundry-tormenta-20/templates/item";
 
 /** Ficha de item. Armas, armaduras, magias e poderes usam o template geral; raças têm o seu. */
 export class T20SItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
@@ -37,7 +37,8 @@ export class T20SItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
 
   _initializeApplicationOptions(options) {
     options = super._initializeApplicationOptions(options);
-    if (["raca", "arma", "armadura", "consumivel"].includes(options.document?.type)) options.position.height = 760;
+    if (["raca", "arma", "armadura", "consumivel"].includes(options.document?.type))
+      options.position.height = 760;
     return options;
   }
 
@@ -51,10 +52,13 @@ export class T20SItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       fields: system.schema.fields,
       config: CONFIG.T20S,
       editable: this.isEditable,
-      descricaoEnriquecida: await foundry.applications.ux.TextEditor.implementation.enrichHTML(system.descricao, {
-        relativeTo: item,
-        secrets: item.isOwner
-      })
+      descricaoEnriquecida: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.descricao,
+        {
+          relativeTo: item,
+          secrets: item.isOwner
+        }
+      )
     });
     if (item.type === "raca") Object.assign(context, this.#contextoRaca());
     if (["arma", "armadura"].includes(item.type)) {
@@ -70,7 +74,8 @@ export class T20SItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     context.efeitosDica = {
       arma: "Valem enquanto a arma estiver equipada (ex.: Defensora, +2 na Defesa: system.defesa.outros).",
       armadura: "Valem enquanto a armadura estiver equipada.",
-      consumivel: "Aplicados no alvo (ou em quem usa) ao usar o item. Ex.: Cosmético, +2 em perícias de Carisma."
+      consumivel:
+        "Aplicados no alvo (ou em quem usa) ao usar o item. Ex.: Cosmético, +2 em perícias de Carisma."
     }[item.type];
     return context;
   }
@@ -81,7 +86,11 @@ export class T20SItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     const excluir = system.escolhas.excluir;
     return {
       atributosFixos: Object.entries(system.atributos).map(([key, valor]) => ({ key, abr: abr[key], valor })),
-      opcoesExcluir: Object.entries(abr).map(([value, label]) => ({ value, label, selected: excluir.has(value) })),
+      opcoesExcluir: Object.entries(abr).map(([value, label]) => ({
+        value,
+        label,
+        selected: excluir.has(value)
+      })),
       opcoesEscolha: Object.entries(abr)
         .filter(([value]) => !excluir.has(value))
         .map(([value, label]) => ({ value, label, selected: system.escolhidos.has(value) })),
@@ -95,7 +104,9 @@ export class T20SItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   /* ---------- Ações ---------- */
 
   static #onAdicionarHabilidade() {
-    return this.document.update({ [`system.habilidades.${foundry.utils.randomID()}`]: { nome: "Nova habilidade" } });
+    return this.document.update({
+      [`system.habilidades.${foundry.utils.randomID()}`]: { nome: "Nova habilidade" }
+    });
   }
 
   static #onRemoverHabilidade(event, target) {
@@ -115,7 +126,8 @@ export class T20SItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   /** Adiciona a modificação escolhida na lista (melhoria/encanto do livro) ou uma em branco. */
   static #onAdicionarModificacao(event, target) {
     const escolha = this.element.querySelector("select.t20s-preset-modificacao")?.value;
-    const presets = this.document.type === "arma" ? CONFIG.T20S.modificacoesArma : CONFIG.T20S.modificacoesArmadura;
+    const presets =
+      this.document.type === "arma" ? CONFIG.T20S.modificacoesArma : CONFIG.T20S.modificacoesArmadura;
     const preset = presets.find((p) => p.nome === escolha);
     const dados = preset
       ? { ...preset, ativa: !preset.condicional }

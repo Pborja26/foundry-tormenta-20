@@ -5,10 +5,11 @@ import { createHash } from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import racas from "../packs/_source/racas.mjs";
 
-const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const lerFonte = (nome) => JSON.parse(fs.readFileSync(path.join(root, "packs/_source", nome), "utf8"));
 const magias = lerFonte("magias.json");
 const armas = lerFonte("armas.json");
@@ -18,7 +19,11 @@ const itens = lerFonte("itens.json");
 const ATRIBUTOS = ["for", "des", "con", "int", "sab", "car"];
 const ICONE = "icons/svg/mystery-man.svg";
 const ICONE_ARMA = { luta: "icons/svg/sword.svg", pontaria: "icons/svg/target.svg" };
-const ICONE_ARMADURA = { leve: "icons/svg/statue.svg", pesada: "icons/svg/statue.svg", escudo: "icons/svg/shield.svg" };
+const ICONE_ARMADURA = {
+  leve: "icons/svg/statue.svg",
+  pesada: "icons/svg/statue.svg",
+  escudo: "icons/svg/shield.svg"
+};
 const ICONE_ITEM = {
   alquimico: "icons/svg/acid.svg",
   veneno: "icons/svg/poison.svg",
@@ -27,7 +32,11 @@ const ICONE_ITEM = {
   geral: "icons/svg/item-bag.svg",
   magico: "icons/svg/heal.svg"
 };
-const ICONE_MAGIA = { arcana: "icons/svg/book.svg", divina: "icons/svg/sun.svg", universal: "icons/svg/aura.svg" };
+const ICONE_MAGIA = {
+  arcana: "icons/svg/book.svg",
+  divina: "icons/svg/sun.svg",
+  universal: "icons/svg/aura.svg"
+};
 /** Atributo padrão da CD; o certo depende da classe de quem lança, e dá para trocar na ficha. */
 const ATRIBUTO_MAGIA = { arcana: "int", divina: "sab", universal: "int" };
 

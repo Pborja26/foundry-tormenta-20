@@ -7,6 +7,12 @@ import { T20S } from "./config.mjs";
 /** Metade do nível, arredondada para baixo. */
 export const meioNivel = (nivel) => Math.floor(nivel / 2);
 
+/** Converte a pontuação de atributo no modificador usado pelas regras. */
+export const modificadorAtributo = (valor) => Math.floor((valor - 10) / 2);
+
+/** Pontuação canônica para um modificador legado, usada na migração de fichas antigas. */
+export const valorAtributoDeModificador = (modificador) => Math.max(1, 10 + modificador * 2);
+
 /** +2 até o 6º nível, +4 do 7º ao 14º, +6 a partir do 15º. */
 export const bonusTreino = (nivel) => (nivel >= 15 ? 6 : nivel >= 7 ? 4 : 2);
 
@@ -69,7 +75,10 @@ export function calcularDefesa({ atributo, atributoChave = "des", equipadas = []
   const partes = [{ rotulo: "Base", valor: 10 }];
   if (!pesada) partes.push({ rotulo: abr, valor: atributo });
   else if (armadura.atributoMax && atributo > 0) {
-    partes.push({ rotulo: `${abr} (máx. ${armadura.atributoMax})`, valor: Math.min(atributo, armadura.atributoMax) });
+    partes.push({
+      rotulo: `${abr} (máx. ${armadura.atributoMax})`,
+      valor: Math.min(atributo, armadura.atributoMax)
+    });
   }
   if (armadura) partes.push({ rotulo: "Armadura", valor: armadura.defesa });
   if (escudo) partes.push({ rotulo: "Escudo", valor: escudo.defesa });
@@ -126,7 +135,10 @@ export function calcularArma({ arma, pericia, atributos }) {
   const trocaAtributo = atributos[atributoAtaque] - atributos[pericia.atributo];
   const partesAtaque = [{ rotulo: pericia.label, valor: pericia.total }];
   if (trocaAtributo) {
-    partesAtaque.push({ rotulo: `${T20S.atributosAbr[atributoAtaque]} no lugar de ${T20S.atributosAbr[pericia.atributo]}`, valor: trocaAtributo });
+    partesAtaque.push({
+      rotulo: `${T20S.atributosAbr[atributoAtaque]} no lugar de ${T20S.atributosAbr[pericia.atributo]}`,
+      valor: trocaAtributo
+    });
   }
   if (arma.bonusAtaque) partesAtaque.push({ rotulo: "Arma", valor: arma.bonusAtaque });
   for (const m of mods) if (m.ataque) partesAtaque.push({ rotulo: m.nome, valor: Number(m.ataque) });
@@ -155,7 +167,9 @@ export function calcularArma({ arma, pericia, atributos }) {
     critico: `${margem < 20 ? `${margem}/` : ""}x${multiplicador}`,
     bonusDano: somar(partesDano),
     partesDano,
-    extras: mods.filter((m) => m.dadosExtras).map((m) => ({ nome: m.nome, formula: m.dadosExtras, tipo: m.tipoExtra })),
+    extras: mods
+      .filter((m) => m.dadosExtras)
+      .map((m) => ({ nome: m.nome, formula: m.dadosExtras, tipo: m.tipoExtra })),
     danoCritico: soma(mods, "danoCritico"),
     modificacoes: mods
   };
@@ -169,7 +183,14 @@ export const multiplicarDados = (formula, mult) =>
  * Fórmula de dano. No crítico só os dados da arma multiplicam;
  * bônus numéricos e dados extras (encantos, Ataque Furtivo) não.
  */
-export function montarFormulaDano({ dano, bonusDano = 0, extras = [], critico = false, multiplicador = 2, danoCritico = 0 }) {
+export function montarFormulaDano({
+  dano,
+  bonusDano = 0,
+  extras = [],
+  critico = false,
+  multiplicador = 2,
+  danoCritico = 0
+}) {
   const termos = [critico ? multiplicarDados(dano, multiplicador) : dano];
   for (const e of extras) termos.push(e.tipo ? `${e.formula}[${e.tipo}]` : e.formula);
   let formula = termos.join(" + ");

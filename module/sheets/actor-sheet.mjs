@@ -3,7 +3,7 @@ import { descreverPartes, montarFormulaDano } from "../regras.mjs";
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
 
-const TEMPLATES = "systems/t20-sistema/templates/actor";
+const TEMPLATES = "systems/foundry-tormenta-20/templates/actor";
 
 /** Ficha de personagem (ApplicationV2). A ficha de ameaça herda desta. */
 export class PersonagemSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
@@ -15,6 +15,7 @@ export class PersonagemSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     actions: {
       rolarPericia: PersonagemSheet.#onRolarPericia,
       rolarAtributo: PersonagemSheet.#onRolarAtributo,
+      editarPontuacao: PersonagemSheet.#onEditarPontuacao,
       rolarOficio: PersonagemSheet.#onRolarOficio,
       adicionarOficio: PersonagemSheet.#onAdicionarOficio,
       removerOficio: PersonagemSheet.#onRemoverOficio,
@@ -67,7 +68,8 @@ export class PersonagemSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       atributos: Object.entries(system.atributos).map(([key, a]) => ({
         key,
         abr: CONFIG.T20S.atributosAbr[key],
-        valor: a.valor,
+        pontuacao: a.pontuacao,
+        pontuacaoTotal: a.pontuacaoTotal,
         racial: a.racial,
         total: a.total
       })),
@@ -101,7 +103,11 @@ export class PersonagemSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   /** Dados prontos para a lista de ataques: bônus final, dano e crítico com modificações. */
   #resumoArma(arma) {
     const calc = this.document.dadosArma(arma);
-    const formula = montarFormulaDano({ dano: arma.system.dano, bonusDano: calc.bonusDano, extras: calc.extras });
+    const formula = montarFormulaDano({
+      dano: arma.system.dano,
+      bonusDano: calc.bonusDano,
+      extras: calc.extras
+    });
     return {
       id: arma.id,
       name: arma.name,
@@ -131,6 +137,25 @@ export class PersonagemSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     return this.document.rolarAtributo(target.dataset.atributo);
   }
 
+  static async #onEditarPontuacao(event, target) {
+    const key = target.dataset.atributo;
+    const atributo = this.document.system.atributos[key];
+    if (!atributo) return;
+
+    const minimo = Math.max(1, atributo.racial + 1);
+    const resultado = await foundry.applications.api.DialogV2.input({
+      window: { title: `Pontuação bruta de ${CONFIG.T20S.atributosAbr[key]}` },
+      content: `<label>Pontuação bruta<input name="pontuacao" type="number" min="${minimo}" step="1" value="${atributo.pontuacaoTotal}" autofocus></label>`,
+      ok: { label: "Salvar" },
+      rejectClose: false
+    });
+    if (!resultado) return;
+
+    const pontuacaoBruta = Number(resultado.pontuacao);
+    if (!Number.isInteger(pontuacaoBruta) || pontuacaoBruta < minimo) return;
+    return this.document.update({ [`system.atributos.${key}.pontuacao`]: pontuacaoBruta - atributo.racial });
+  }
+
   static #onRolarOficio(event, target) {
     return this.document.rolarOficio(target.closest("[data-oficio-id]").dataset.oficioId);
   }
@@ -150,7 +175,9 @@ export class PersonagemSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   static #onMostrarHabilidade(event, target) {
-    return this.document.system.raca?.mostrarHabilidade(target.closest("[data-habilidade-id]").dataset.habilidadeId);
+    return this.document.system.raca?.mostrarHabilidade(
+      target.closest("[data-habilidade-id]").dataset.habilidadeId
+    );
   }
 
   static #onUsarItem(event, target) {

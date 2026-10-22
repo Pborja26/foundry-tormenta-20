@@ -1,6 +1,6 @@
 import { montarFormulaDano } from "../regras.mjs";
 
-const CHAT_TEMPLATE ="systems/t20-sistema/templates/chat/rolagem.hbs";
+const CHAT_TEMPLATE = "systems/foundry-tormenta-20/templates/chat/rolagem.hbs";
 
 /** Resultado natural do primeiro d20 de uma rolagem já avaliada. */
 function d20Natural(roll) {
@@ -45,14 +45,16 @@ export async function rolarAtaque(actor, arma) {
   const critico = natural >= calc.margem;
 
   // Armas sem dano (ex.: rede) só rolam o ataque.
-  const formula = sys.dano && montarFormulaDano({
-    dano: sys.dano,
-    bonusDano: calc.bonusDano,
-    extras: calc.extras,
-    critico,
-    multiplicador: calc.multiplicador,
-    danoCritico: calc.danoCritico
-  });
+  const formula =
+    sys.dano &&
+    montarFormulaDano({
+      dano: sys.dano,
+      bonusDano: calc.bonusDano,
+      extras: calc.extras,
+      critico,
+      multiplicador: calc.multiplicador,
+      danoCritico: calc.danoCritico
+    });
   const dano = formula ? await new Roll(formula, actor.getRollData()).evaluate() : null;
 
   const tipo = CONFIG.T20S.tiposDano[sys.tipoDano] ?? "";
@@ -63,7 +65,10 @@ export async function rolarAtaque(actor, arma) {
     subtitulo: [`${sys.dano} ${tipo}`, calc.critico, mods].filter(Boolean).join(" · "),
     linhas: [
       { rotulo: "Ataque", html: await ataque.render() },
-      dano && { rotulo: critico ? `Dano (crítico x${calc.multiplicador})` : "Dano", html: await dano.render() }
+      dano && {
+        rotulo: critico ? `Dano (crítico x${calc.multiplicador})` : "Dano",
+        html: await dano.render()
+      }
     ].filter(Boolean),
     critico,
     natural1: natural === 1
@@ -115,16 +120,26 @@ export async function usarConsumivel(actor, item) {
     if (roll && efeito.tipo === "pmTemp") mudancas["system.pm.temp"] = Math.max(pm.temp, roll.total);
     if (Object.keys(mudancas).length) await alvo.update(mudancas);
 
-    const efeitos = item.effects.map((e) => ({ ...e.toObject(), origin: item.uuid, transfer: false, disabled: false }));
+    const efeitos = item.effects.map((e) => ({
+      ...e.toObject(),
+      origin: item.uuid,
+      transfer: false,
+      disabled: false
+    }));
     if (efeitos.length) await alvo.createEmbeddedDocuments("ActiveEffect", efeitos);
     if (Object.keys(mudancas).length || efeitos.length) aplicados.push(alvo.name);
   }
 
-  const cd = efeito.atributoCd ? 10 + actor.system.meioNivel + actor.system.atributos[efeito.atributoCd].total : null;
+  const cd = efeito.atributoCd
+    ? 10 + actor.system.meioNivel + actor.system.atributos[efeito.atributoCd].total
+    : null;
   const detalhes = [
     { rotulo: "Execução", valor: sys.execucao },
     { rotulo: "Alcance", valor: sys.alcance },
-    { rotulo: "Resistência", valor: efeito.resistencia ? `${efeito.resistencia}${cd ? ` (CD ${cd})` : ""}` : "" },
+    {
+      rotulo: "Resistência",
+      valor: efeito.resistencia ? `${efeito.resistencia}${cd ? ` (CD ${cd})` : ""}` : ""
+    },
     { rotulo: "Aplicado em", valor: aplicados.join(", ") }
   ].filter((d) => d.valor);
 
@@ -133,10 +148,14 @@ export async function usarConsumivel(actor, item) {
   const content = await foundry.applications.handlebars.renderTemplate(CHAT_TEMPLATE, {
     titulo: item.name,
     img: item.img,
-    subtitulo: sys.consumir ? `Restam ${sys.quantidade - 1}` : CONFIG.T20S.categoriasConsumivel[sys.categoria],
+    subtitulo: sys.consumir
+      ? `Restam ${sys.quantidade - 1}`
+      : CONFIG.T20S.categoriasConsumivel[sys.categoria],
     linhas,
     detalhes,
-    descricao: await foundry.applications.ux.TextEditor.implementation.enrichHTML(sys.descricao, { relativeTo: item })
+    descricao: await foundry.applications.ux.TextEditor.implementation.enrichHTML(sys.descricao, {
+      relativeTo: item
+    })
   });
   return ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor }), content, rolls });
 }

@@ -62,22 +62,24 @@ Para mudar um compêndio, edite `packs/_source/racas.mjs` ou `packs/_source/magi
 
 ## O que já funciona
 
-| Área | Regras |
-| --- | --- |
-| Atributos | FOR, DES, CON, INT, SAB, CAR (o valor é o próprio modificador). Total = base + raça |
-| Raças | Item de raça: modificadores fixos e de livre escolha, tamanho, deslocamento, habilidades e efeitos automáticos |
-| Perícias | ½ nível + atributo + treino (+2 / +4 no 7º / +6 no 15º) + outros. Perícias só treinadas (*) bloqueiam o teste. Tooltip no total mostra a conta |
-| Ofícios | Lista livre na ficha (botão +): nome, atributo (INT por padrão), treino e outros. Só treinados podem rolar |
-| Tamanho | Modificador em Furtividade (Minúsculo +5, Pequeno +2, Grande −2, Enorme −5, Colossal −10) |
-| Defesa | 10 + atributo (DES por padrão) + 1 armadura + 1 escudo + outros. Armadura pesada não soma o atributo |
-| Armadura | Penalidade (armadura + escudo) subtrai de Acrobacia, Furtividade e Ladinagem. Pesada: −3m de deslocamento |
-| Ataque | 1d20 + Luta/Pontaria + bônus da arma + melhorias/encantos. Atributo do ataque pode ser trocado (Acuidade com Arma). Dano soma o atributo em Luta e Força em arremesso. No crítico só **os dados da arma** multiplicam; bônus e dados extras não |
-| Melhorias e encantos | Na ficha da arma/armadura: lista do livro (Certeira, Pungente, Cruel, Atroz, Precisa, Maciça, Flamejante, Ameaçadora, Formidável, Magnífica, Dilacerante, Ajustada, Sob Medida, Reforçada, Delicada, Defensor…) ou personalizada. Pungente/Atroz/Magnífica/Sob Medida substituem a anterior. Sagrada/Profana começam desligadas |
-| Itens utilizáveis | Quantidade, gasta ao usar, rola o efeito e aplica cura/PM/PV ou PM temporários e Active Effects nos alvos marcados (ou em quem usa). Dano e venenos só rolam |
-| Magias | Custo por círculo (1/3/6/10/15 PM), gasta PM, mostra CD = 10 + ½ nível + atributo |
-| Poderes | Gasta PM quando têm custo e mostram a descrição no chat |
-| Ameaças | Mesma ficha, com ND e Defesa fixa |
-| Iniciativa | 1d20 + Iniciativa |
+| Área      | Regras                                                                                                      |
+| --------- | ----------------------------------------------------------------------------------------------------------- |
+| Atributos | FOR, DES, CON, INT, SAB, CAR: pontuação convertida em modificador pela tabela do livro, após aplicar a raça |
+
+- Na ficha, o atributo mostra o modificador calculado; o campo pequeno é a pontuação base, antes da raça.
+  | Raças | Item de raça: modificadores fixos e de livre escolha, tamanho, deslocamento, habilidades e efeitos automáticos |
+  | Perícias | ½ nível + atributo + treino (+2 / +4 no 7º / +6 no 15º) + outros. Perícias só treinadas (\*) bloqueiam o teste. Tooltip no total mostra a conta |
+  | Ofícios | Lista livre na ficha (botão +): nome, atributo (INT por padrão), treino e outros. Só treinados podem rolar |
+  | Tamanho | Modificador em Furtividade (Minúsculo +5, Pequeno +2, Grande −2, Enorme −5, Colossal −10) |
+  | Defesa | 10 + atributo (DES por padrão) + 1 armadura + 1 escudo + outros. Armadura pesada não soma o atributo |
+  | Armadura | Penalidade (armadura + escudo) subtrai de Acrobacia, Furtividade e Ladinagem. Pesada: −3m de deslocamento |
+  | Ataque | 1d20 + Luta/Pontaria + bônus da arma + melhorias/encantos. Atributo do ataque pode ser trocado (Acuidade com Arma). Dano soma o atributo em Luta e Força em arremesso. No crítico só **os dados da arma** multiplicam; bônus e dados extras não |
+  | Melhorias e encantos | Na ficha da arma/armadura: lista do livro (Certeira, Pungente, Cruel, Atroz, Precisa, Maciça, Flamejante, Ameaçadora, Formidável, Magnífica, Dilacerante, Ajustada, Sob Medida, Reforçada, Delicada, Defensor…) ou personalizada. Pungente/Atroz/Magnífica/Sob Medida substituem a anterior. Sagrada/Profana começam desligadas |
+  | Itens utilizáveis | Quantidade, gasta ao usar, rola o efeito e aplica cura/PM/PV ou PM temporários e Active Effects nos alvos marcados (ou em quem usa). Dano e venenos só rolam |
+  | Magias | Custo por círculo (1/3/6/10/15 PM), gasta PM, mostra CD = 10 + ½ nível + atributo |
+  | Poderes | Gasta PM quando têm custo e mostram a descrição no chat |
+  | Ameaças | Mesma ficha, com ND e Defesa fixa |
+  | Iniciativa | 1d20 + Iniciativa |
 
 ## Estrutura
 

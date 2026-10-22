@@ -1,15 +1,16 @@
-// Cria um link desta pasta em <Dados do Foundry>/Data/systems/t20-sistema.
+// Cria um link desta pasta em <Dados do Foundry>/Data/systems/foundry-tormenta-20.
 // Uso: npm run link -- "<caminho dos dados do Foundry>"
 // (o caminho aparece no Foundry em Configuration → User Data Path)
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const padrao = path.join(os.homedir(), "Library/Application Support/FoundryVTT");
 const dados = process.argv[2] ?? process.env.FOUNDRY_DATA ?? padrao;
 const systemsDir = path.join(dados, "Data", "systems");
-const origem = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
-const destino = path.join(systemsDir, "t20-sistema");
+const origem = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const destino = path.join(systemsDir, "foundry-tormenta-20");
 
 if (!fs.existsSync(systemsDir)) {
   console.error(`Pasta não encontrada: ${systemsDir}`);

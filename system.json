@@ -1,5 +1,5 @@
 {
-  "id": "t20-sistema",
+  "id": "foundry-tormenta-20",
   "title": "Tormenta20 — Sistema Próprio",
   "description": "Sistema para Foundry VTT v13 com as regras de Tormenta20 implementadas do zero.",
   "version": "0.1.0",
@@ -12,12 +12,8 @@
     "minimum": "13",
     "verified": "13"
   },
-  "esmodules": [
-    "t20-sistema.mjs"
-  ],
-  "styles": [
-    "styles/t20-sistema.css"
-  ],
+  "esmodules": ["t20-sistema.mjs"],
+  "styles": ["styles/t20-sistema.css"],
   "languages": [
     {
       "lang": "pt-BR",
@@ -28,46 +24,30 @@
   "documentTypes": {
     "Actor": {
       "personagem": {
-        "htmlFields": [
-          "biografia"
-        ]
+        "htmlFields": ["biografia"]
       },
       "ameaca": {
-        "htmlFields": [
-          "descricao"
-        ]
+        "htmlFields": ["descricao"]
       }
     },
     "Item": {
       "arma": {
-        "htmlFields": [
-          "descricao"
-        ]
+        "htmlFields": ["descricao"]
       },
       "armadura": {
-        "htmlFields": [
-          "descricao"
-        ]
+        "htmlFields": ["descricao"]
       },
       "magia": {
-        "htmlFields": [
-          "descricao"
-        ]
+        "htmlFields": ["descricao"]
       },
       "poder": {
-        "htmlFields": [
-          "descricao"
-        ]
+        "htmlFields": ["descricao"]
       },
       "raca": {
-        "htmlFields": [
-          "descricao"
-        ]
+        "htmlFields": ["descricao"]
       },
       "consumivel": {
-        "htmlFields": [
-          "descricao"
-        ]
+        "htmlFields": ["descricao"]
       }
     }
   },
@@ -85,7 +65,7 @@
       "label": "Raças",
       "path": "packs/racas",
       "type": "Item",
-      "system": "t20-sistema",
+      "system": "foundry-tormenta-20",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -96,7 +76,7 @@
       "label": "Magias",
       "path": "packs/magias",
       "type": "Item",
-      "system": "t20-sistema",
+      "system": "foundry-tormenta-20",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -107,7 +87,7 @@
       "label": "Armas",
       "path": "packs/armas",
       "type": "Item",
-      "system": "t20-sistema",
+      "system": "foundry-tormenta-20",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -118,7 +98,7 @@
       "label": "Armaduras e Escudos",
       "path": "packs/armaduras",
       "type": "Item",
-      "system": "t20-sistema",
+      "system": "foundry-tormenta-20",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -129,7 +109,7 @@
       "label": "Itens",
       "path": "packs/itens",
       "type": "Item",
-      "system": "t20-sistema",
+      "system": "foundry-tormenta-20",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -140,13 +120,7 @@
     {
       "name": "Tormenta20",
       "sorting": "m",
-      "packs": [
-        "racas",
-        "magias",
-        "armas",
-        "armaduras",
-        "itens"
-      ]
+      "packs": ["racas", "magias", "armas", "armaduras", "itens"]
     }
   ]
 }

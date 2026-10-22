@@ -1,13 +1,20 @@
 import { T20S } from "./module/config.mjs";
 import { AmeacaData, PersonagemData } from "./module/data/actor.mjs";
-import { ArmaData, ArmaduraData, ConsumivelData, MagiaData, PoderData, RacaData } from "./module/data/item.mjs";
+import {
+  ArmaData,
+  ArmaduraData,
+  ConsumivelData,
+  MagiaData,
+  PoderData,
+  RacaData
+} from "./module/data/item.mjs";
 import { T20SActiveEffect } from "./module/documents/active-effect.mjs";
 import { T20SActor } from "./module/documents/actor.mjs";
 import { T20SItem } from "./module/documents/item.mjs";
 import { AmeacaSheet, PersonagemSheet } from "./module/sheets/actor-sheet.mjs";
 import { T20SItemSheet } from "./module/sheets/item-sheet.mjs";
 
-const SYSTEM_ID = "t20-sistema";
+const SYSTEM_ID = "foundry-tormenta-20";
 
 Hooks.once("init", () => {
   console.log(`${SYSTEM_ID} | Inicializando`);

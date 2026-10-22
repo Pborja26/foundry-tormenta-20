@@ -1,13 +1,16 @@
 /* Tormenta20 — Sistema Próprio. Paleta da "Ficha de Arton". */
 
 .t20s {
-  --t20s-red: #8b1a1a;
-  --t20s-red-dark: #5c0f0f;
-  --t20s-gold: #c9a227;
-  --t20s-ink: #2b1d14;
-  --t20s-parchment: #f3e7cc;
-  --t20s-parchment-dark: #e2d1a8;
-  --t20s-mana: #2c4f8a;
+  --t20s-red: #7b272b;
+  --t20s-red-dark: #5a1c20;
+  --t20s-gold: #80652f;
+  --t20s-ink: #292724;
+  --t20s-muted: #57534d;
+  --t20s-parchment: #f5f4f1;
+  --t20s-parchment-dark: #e4e2dc;
+  --t20s-surface: #ffffff;
+  --t20s-surface-muted: #efeeea;
+  --t20s-mana: #355d70;
   --t20s-heading: "Modesto Condensed", "Signika", serif;
 }
 
@@ -15,12 +18,15 @@
   padding: 10px 12px;
   gap: 8px;
   color: var(--t20s-ink);
-  background: radial-gradient(ellipse at top, var(--t20s-parchment) 0%, var(--t20s-parchment-dark) 100%);
+  background: var(--t20s-parchment);
 }
 
 .application.t20s input,
 .application.t20s select {
   color: var(--t20s-ink);
+  background-color: var(--t20s-surface);
+  border-color: #c8c5be;
+  accent-color: var(--t20s-red);
 }
 
 .t20s h3 {
@@ -110,8 +116,8 @@
 }
 
 .t20s .t20s-detalhes input {
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid var(--t20s-parchment-dark);
+  background: var(--t20s-surface);
+  border: 1px solid #c8c5be;
 }
 
 .t20s .t20s-recursos {
@@ -135,7 +141,7 @@
   position: relative;
   flex: 1;
   height: 28px;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--t20s-parchment-dark);
   border: 2px solid var(--t20s-ink);
   border-radius: 14px;
   overflow: hidden;
@@ -187,7 +193,7 @@
   justify-content: center;
   padding: 8px 6px 20px;
   color: var(--t20s-parchment);
-  background: linear-gradient(180deg, var(--t20s-red) 0%, var(--t20s-red-dark) 100%);
+  background: var(--t20s-red-dark);
   clip-path: polygon(0 0, 100% 0, 100% 65%, 50% 100%, 0 65%);
 }
 
@@ -223,9 +229,9 @@
   padding: 0;
   font-size: 0.7rem;
   text-align: center;
-  color: var(--t20s-parchment);
-  background: rgba(0, 0, 0, 0.25);
-  border: none;
+  color: var(--t20s-ink);
+  background: var(--t20s-surface);
+  border: 1px solid #c8c5be;
 }
 
 /* ---------- Abas ---------- */
@@ -244,8 +250,8 @@
 }
 
 .t20s nav.tabs > a.active {
-  color: var(--t20s-parchment);
-  background: var(--t20s-red);
+  color: #ffffff;
+  background: var(--t20s-red-dark);
   text-shadow: none;
 }
 
@@ -273,7 +279,7 @@
   flex-direction: column;
   align-items: center;
   padding: 6px 4px;
-  background: rgba(255, 255, 255, 0.45);
+  background: var(--t20s-surface);
   border: 2px solid var(--t20s-gold);
   border-radius: 50% 50% 10px 10px / 30% 30% 10px 10px;
 }
@@ -298,12 +304,24 @@
 }
 
 .application.t20s .t20s-atributo-base input {
+.application.t20s .t20s-atributo-bruto {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 36px;
   height: 18px;
   font-size: 0.75rem;
   text-align: center;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid var(--t20s-parchment-dark);
+  line-height: 1;
+  padding: 0;
+  color: var(--t20s-ink);
+  background: var(--t20s-surface);
+  border: 1px solid #c8c5be;
+}
+
+button.application.t20s .t20s-atributo-bruto,
+.application.t20s button.t20s-atributo-bruto {
+  cursor: pointer;
 }
 
 .t20s .t20s-racial {
@@ -319,7 +337,7 @@
   justify-content: space-between;
   padding: 0 6px;
   font-weight: bold;
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--t20s-surface);
   border: 1px solid var(--t20s-gold);
   border-radius: 4px;
 }
@@ -327,14 +345,14 @@
 .t20s .t20s-raca-chip.vazio {
   font-weight: normal;
   font-style: italic;
-  opacity: 0.6;
+  color: var(--t20s-muted);
   border-style: dashed;
 }
 
 .t20s .t20s-raca-chip.pendente,
 .t20s .t20s-raca-escolha.pendente {
   border-color: var(--t20s-red);
-  color: var(--t20s-red);
+  color: var(--t20s-red-dark);
 }
 
 /* ---------- Perícias e listas ---------- */
@@ -356,12 +374,12 @@
   flex: 1.2;
   margin: 0;
   border-collapse: collapse;
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--t20s-surface);
 }
 
 .t20s .t20s-pericias th {
-  color: var(--t20s-parchment);
-  background: var(--t20s-red);
+  color: #ffffff;
+  background: var(--t20s-red-dark);
   font-weight: normal;
 }
 
@@ -369,12 +387,17 @@
   padding: 1px 4px;
 }
 
+.t20s .t20s-pericias tbody tr:nth-child(even) td {
+  background: var(--t20s-surface-muted);
+}
+
 .t20s .t20s-pericias tr.treinada td {
   font-weight: bold;
 }
 
 .t20s .t20s-pericias tr.bloqueada td {
-  opacity: 0.55;
+  color: var(--t20s-muted);
+  background: var(--t20s-surface-muted);
 }
 
 .application.t20s .t20s-pericias input[type="number"] {
@@ -452,7 +475,7 @@
 
 .t20s .t20s-item-info {
   font-size: 0.85rem;
-  opacity: 0.8;
+  color: var(--t20s-muted);
 }
 
 .t20s .t20s-item-controles {
@@ -466,7 +489,7 @@
 
 .t20s .t20s-vazio {
   font-style: italic;
-  opacity: 0.6;
+  color: var(--t20s-muted);
 }
 
 .t20s .biografia prose-mirror {
@@ -528,7 +551,7 @@
   align-items: center;
   gap: 8px;
   padding-bottom: 4px;
-  border-bottom: 2px solid #8b1a1a;
+  border-bottom: 2px solid var(--t20s-red);
 }
 
 .t20s-chat header img {
@@ -539,13 +562,13 @@
 
 .t20s-chat h3 {
   margin: 0;
-  color: #5c0f0f;
+  color: var(--t20s-red-dark);
   border: none;
 }
 
 .t20s-chat .t20s-chat-sub {
   font-size: 0.8rem;
-  opacity: 0.8;
+  color: var(--t20s-muted);
 }
 
 .t20s-chat .t20s-chat-rotulo {
@@ -563,11 +586,11 @@
 }
 
 .t20s-chat.critico .t20s-chat-aviso {
-  color: #1d7a1d;
+  color: #28633a;
 }
 
 .t20s-chat.falha .t20s-chat-aviso {
-  color: #8b1a1a;
+  color: var(--t20s-red-dark);
 }
 
 .t20s-chat .t20s-chat-detalhes {
@@ -601,7 +624,7 @@
 
 .t20s .t20s-raca-resumo {
   font-size: 0.85rem;
-  opacity: 0.8;
+  color: var(--t20s-muted);
 }
 
 .t20s .t20s-raca-atributos {
@@ -624,6 +647,7 @@
 
 .t20s .t20s-raca-escolha {
   padding: 6px;
+  background: var(--t20s-surface);
   border: 1px solid var(--t20s-gold);
   border-radius: 4px;
 }
@@ -642,7 +666,7 @@
 .t20s .t20s-dica {
   margin: 0;
   font-size: 0.8rem;
-  opacity: 0.75;
+  color: var(--t20s-muted);
 }
 
 .t20s .t20s-habilidade {
@@ -666,7 +690,7 @@
 
 .t20s .t20s-item-nome.desativado {
   text-decoration: line-through;
-  opacity: 0.6;
+  color: var(--t20s-muted);
 }
 
 /* ---------- Equipamento ---------- */
@@ -689,14 +713,15 @@
   gap: 4px;
   padding: 6px;
   margin-bottom: 4px;
-  background: rgba(255, 255, 255, 0.35);
+  background: var(--t20s-surface);
   border: 1px solid var(--t20s-gold);
   border-radius: 4px;
 }
 
 .t20s .t20s-mod.inativa,
 .t20s .t20s-mod.substituida {
-  opacity: 0.55;
+  color: var(--t20s-muted);
+  background: var(--t20s-surface-muted);
 }
 
 .t20s .t20s-mod-topo {
@@ -735,5 +760,6 @@
 }
 
 .t20s .t20s-item.esgotado {
-  opacity: 0.5;
+  color: var(--t20s-muted);
+  background: var(--t20s-surface-muted);
 }

@@ -4,10 +4,14 @@
     <li class="t20s-atributo">
       <a class="t20s-atributo-nome" data-action="rolarAtributo" data-atributo="{{atr.key}}">{{atr.abr}}</a>
       <a class="t20s-atributo-total" data-action="rolarAtributo" data-atributo="{{atr.key}}"
-        data-tooltip="Base {{atr.valor}}{{#if atr.racial}} + Raça {{atr.racial}}{{/if}}">{{numberFormat atr.total sign=true}}</a>
+        data-tooltip="Pontuação bruta {{atr.pontuacaoTotal}}; clique para rolar">{{numberFormat atr.total sign=true}}</a>
       <div class="t20s-atributo-base">
-        <input type="number" name="system.atributos.{{atr.key}}.valor" value="{{atr.valor}}" title="Valor base" />
-        {{#if atr.racial}}<span class="t20s-racial" title="Modificador racial">{{numberFormat atr.racial sign=true}}</span>{{/if}}
+        {{#if @root.editable}}
+        <button type="button" class="t20s-atributo-bruto" data-action="editarPontuacao" data-atributo="{{atr.key}}"
+          aria-label="Editar pontuação bruta de {{atr.abr}}" title="Editar pontuação bruta">{{atr.pontuacaoTotal}}</button>
+        {{else}}
+        <span class="t20s-atributo-bruto">{{atr.pontuacaoTotal}}</span>
+        {{/if}}
       </div>
     </li>
     {{/each}}

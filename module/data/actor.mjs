@@ -1,7 +1,17 @@
 import { T20S } from "../config.mjs";
-import { calcularDefesa, calcularDeslocamento, calcularPericia, descreverPartes, meioNivel } from "../regras.mjs";
+import {
+  calcularBonusRacial,
+  calcularDefesa,
+  calcularDeslocamento,
+  calcularPericia,
+  descreverPartes,
+  meioNivel,
+  modificadorAtributo,
+  valorAtributoDeModificador
+} from "../regras.mjs";
 
-const { SchemaField, NumberField, StringField, BooleanField, HTMLField, TypedObjectField } = foundry.data.fields;
+const { SchemaField, NumberField, StringField, BooleanField, HTMLField, TypedObjectField } =
+  foundry.data.fields;
 
 const inteiro = (initial = 0, opts = {}) =>
   new NumberField({ required: true, nullable: false, integer: true, initial, ...opts });
@@ -17,7 +27,8 @@ const recurso = (max) =>
 class CriaturaData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const atributos = {};
-    for (const key of Object.keys(T20S.atributos)) atributos[key] = new SchemaField({ valor: inteiro(0) });
+    for (const key of Object.keys(T20S.atributos))
+      atributos[key] = new SchemaField({ pontuacao: inteiro(10, { min: 1 }) });
 
     const pericias = {};
     for (const key of Object.keys(T20S.pericias)) {
@@ -34,7 +45,11 @@ class CriaturaData extends foundry.abstract.TypeDataModel {
       oficios: new TypedObjectField(
         new SchemaField({
           nome: new StringField({ required: true, initial: "Ofício" }),
-          atributo: new StringField({ required: true, initial: T20S.oficio.atributo, choices: T20S.atributosAbr }),
+          atributo: new StringField({
+            required: true,
+            initial: T20S.oficio.atributo,
+            choices: T20S.atributosAbr
+          }),
           treinada: new BooleanField({ initial: false }),
           outros: inteiro(0)
         })
@@ -52,8 +67,19 @@ class CriaturaData extends foundry.abstract.TypeDataModel {
     const antigo = source.pericias?.oficio;
     if (antigo && !source.oficios && (antigo.treinada || antigo.outros)) {
       source.oficios = {
-        [foundry.utils.randomID()]: { nome: "Ofício", atributo: "int", treinada: antigo.treinada, outros: antigo.outros }
+        [foundry.utils.randomID()]: {
+          nome: "Ofício",
+          atributo: "int",
+          treinada: antigo.treinada,
+          outros: antigo.outros
+        }
       };
+    }
+
+    for (const [key, atributo] of Object.entries(source.atributos ?? {})) {
+      if (atributo.pontuacao !== undefined || atributo.valor === undefined) continue;
+      atributo.pontuacao = valorAtributoDeModificador(Number(atributo.valor));
+      delete atributo.valor;
     }
     return super.migrateData(source);
   }
@@ -74,11 +100,12 @@ class CriaturaData extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
-    // Atributo: "valor" é o que o jogador define (pontos/rolagem); "total" soma a raça.
+    // O jogador define a pontuação; regras usam o modificador após aplicar a raça.
     const bonusRacial = this.raca?.system.bonus ?? {};
     for (const [key, atr] of Object.entries(this.atributos)) {
       atr.racial = bonusRacial[key] ?? 0;
-      atr.total = atr.valor + atr.racial;
+      atr.pontuacaoTotal = atr.pontuacao + atr.racial;
+      atr.total = modificadorAtributo(atr.pontuacaoTotal);
     }
 
     this.prepararDefesa?.();
